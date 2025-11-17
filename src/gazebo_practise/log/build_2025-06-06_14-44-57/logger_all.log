@@ -1,0 +1,82 @@
+[0.832s] DEBUG:colcon:Command line arguments: ['/usr/bin/colcon', 'build', '--packages-select', 'gazebo_practise']
+[0.832s] DEBUG:colcon:Parsed command line arguments: Namespace(log_base=None, log_level=None, verb_name='build', build_base='build', install_base='install', merge_install=False, symlink_install=False, test_result_base=None, continue_on_error=False, executor='parallel', parallel_workers=20, event_handlers=None, ignore_user_meta=False, metas=['./colcon.meta'], base_paths=['.'], packages_ignore=None, packages_ignore_regex=None, paths=None, packages_up_to=None, packages_up_to_regex=None, packages_above=None, packages_above_and_dependencies=None, packages_above_depth=None, packages_select_by_dep=None, packages_skip_by_dep=None, packages_skip_up_to=None, packages_select_build_failed=False, packages_skip_build_finished=False, packages_select_test_failures=False, packages_skip_test_passed=False, packages_select=['gazebo_practise'], packages_skip=None, packages_select_regex=None, packages_skip_regex=None, packages_start=None, packages_end=None, allow_overriding=[], cmake_args=None, cmake_target=None, cmake_target_skip_unavailable=False, cmake_clean_cache=False, cmake_clean_first=False, cmake_force_configure=False, ament_cmake_args=None, catkin_cmake_args=None, catkin_skip_building_tests=False, mixin_files=None, mixin=None, verb_parser=<colcon_mixin.mixin.mixin_argument.MixinArgumentDecorator object at 0x7f882e3be830>, verb_extension=<colcon_core.verb.build.BuildVerb object at 0x7f882e3be2c0>, main=<bound method BuildVerb.main of <colcon_core.verb.build.BuildVerb object at 0x7f882e3be2c0>>, mixin_verb=('build',))
+[1.400s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) check parameters
+[1.400s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) check parameters
+[1.401s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) check parameters
+[1.401s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) check parameters
+[1.401s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) discover
+[1.401s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) discover
+[1.401s] INFO:colcon.colcon_core.package_discovery:Crawling recursively for packages in '/root/Gazebo_WS/src/gazebo_practise'
+[1.401s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ignore', 'ignore_ament_install']
+[1.401s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore'
+[1.401s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore_ament_install'
+[1.401s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_pkg']
+[1.401s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_pkg'
+[1.401s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_meta']
+[1.401s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_meta'
+[1.401s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ros']
+[1.401s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ros'
+[1.442s] DEBUG:colcon.colcon_core.package_identification:Package '.' with type 'ros.ament_cmake' and name 'gazebo_practise'
+[1.442s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) using defaults
+[1.442s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) discover
+[1.442s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) using defaults
+[1.442s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) discover
+[1.442s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) using defaults
+[1.510s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) check parameters
+[1.510s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) discover
+[1.521s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 371 installed packages in /opt/ros/humble
+[1.524s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) using defaults
+[1.589s] Level 5:colcon.colcon_core.verb:set package 'gazebo_practise' build argument 'cmake_args' from command line to 'None'
+[1.589s] Level 5:colcon.colcon_core.verb:set package 'gazebo_practise' build argument 'cmake_target' from command line to 'None'
+[1.589s] Level 5:colcon.colcon_core.verb:set package 'gazebo_practise' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[1.589s] Level 5:colcon.colcon_core.verb:set package 'gazebo_practise' build argument 'cmake_clean_cache' from command line to 'False'
+[1.589s] Level 5:colcon.colcon_core.verb:set package 'gazebo_practise' build argument 'cmake_clean_first' from command line to 'False'
+[1.589s] Level 5:colcon.colcon_core.verb:set package 'gazebo_practise' build argument 'cmake_force_configure' from command line to 'False'
+[1.589s] Level 5:colcon.colcon_core.verb:set package 'gazebo_practise' build argument 'ament_cmake_args' from command line to 'None'
+[1.589s] Level 5:colcon.colcon_core.verb:set package 'gazebo_practise' build argument 'catkin_cmake_args' from command line to 'None'
+[1.589s] Level 5:colcon.colcon_core.verb:set package 'gazebo_practise' build argument 'catkin_skip_building_tests' from command line to 'False'
+[1.589s] DEBUG:colcon.colcon_core.verb:Building package 'gazebo_practise' with the following arguments: {'ament_cmake_args': None, 'build_base': '/root/Gazebo_WS/src/gazebo_practise/build/gazebo_practise', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/root/Gazebo_WS/src/gazebo_practise/install/gazebo_practise', 'merge_install': False, 'path': '/root/Gazebo_WS/src/gazebo_practise', 'symlink_install': False, 'test_result_base': None}
+[1.590s] INFO:colcon.colcon_core.executor:Executing jobs using 'parallel' executor
+[1.591s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete
+[1.592s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/root/Gazebo_WS/src/gazebo_practise' with build type 'ament_cmake'
+[1.592s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/root/Gazebo_WS/src/gazebo_practise'
+[1.608s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_core.shell.bat': Not used on non-Windows systems
+[1.608s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[1.608s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[1.626s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/root/Gazebo_WS/src/gazebo_practise/build/gazebo_practise': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake /root/Gazebo_WS/src/gazebo_practise -DCMAKE_INSTALL_PREFIX=/root/Gazebo_WS/src/gazebo_practise/install/gazebo_practise
+[2.251s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete was interrupted
+[2.251s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete again
+[2.256s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(gazebo_practise)
+[2.257s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/root/Gazebo_WS/src/gazebo_practise/build/gazebo_practise' returned '-2': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake /root/Gazebo_WS/src/gazebo_practise -DCMAKE_INSTALL_PREFIX=/root/Gazebo_WS/src/gazebo_practise/install/gazebo_practise
+[2.279s] Level 1:colcon.colcon_core.environment:checking '/root/Gazebo_WS/src/gazebo_practise/install/gazebo_practise' for CMake module files
+[2.280s] Level 1:colcon.colcon_core.environment:checking '/root/Gazebo_WS/src/gazebo_practise/install/gazebo_practise' for CMake config files
+[2.280s] Level 1:colcon.colcon_core.environment:checking '/root/Gazebo_WS/src/gazebo_practise/install/gazebo_practise/bin'
+[2.280s] Level 1:colcon.colcon_core.environment:checking '/root/Gazebo_WS/src/gazebo_practise/install/gazebo_practise/lib/pkgconfig/gazebo_practise.pc'
+[2.281s] Level 1:colcon.colcon_core.environment:checking '/root/Gazebo_WS/src/gazebo_practise/install/gazebo_practise/lib/python3.10/site-packages'
+[2.281s] Level 1:colcon.colcon_core.environment:checking '/root/Gazebo_WS/src/gazebo_practise/install/gazebo_practise/bin'
+[2.281s] INFO:colcon.colcon_core.shell:Creating package script '/root/Gazebo_WS/src/gazebo_practise/install/gazebo_practise/share/gazebo_practise/package.ps1'
+[2.287s] INFO:colcon.colcon_core.shell:Creating package descriptor '/root/Gazebo_WS/src/gazebo_practise/install/gazebo_practise/share/gazebo_practise/package.dsv'
+[2.289s] INFO:colcon.colcon_core.shell:Creating package script '/root/Gazebo_WS/src/gazebo_practise/install/gazebo_practise/share/gazebo_practise/package.sh'
+[2.291s] INFO:colcon.colcon_core.shell:Creating package script '/root/Gazebo_WS/src/gazebo_practise/install/gazebo_practise/share/gazebo_practise/package.bash'
+[2.293s] INFO:colcon.colcon_core.shell:Creating package script '/root/Gazebo_WS/src/gazebo_practise/install/gazebo_practise/share/gazebo_practise/package.zsh'
+[2.296s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/root/Gazebo_WS/src/gazebo_practise/install/gazebo_practise/share/colcon-core/packages/gazebo_practise)
+[2.299s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete finished
+[2.299s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:closing loop
+[2.301s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:loop closed
+[2.301s] DEBUG:colcon.colcon_core.event_reactor:joining thread
+[2.540s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.notify_send': Could not find 'notify-send'
+[2.541s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.terminal_notifier': Not used on non-Darwin systems
+[2.541s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.win32': Not used on non-Windows systems
+[2.541s] INFO:colcon.colcon_notification.desktop_notification:Sending desktop notification using 'notify2'
+[2.541s] DEBUG:colcon.colcon_notification.desktop_notification.notify2:Failed to initialize notify2: org.freedesktop.DBus.Error.FileNotFound: Failed to connect to socket /run/user/0/bus: No such file or directory
+[2.541s] DEBUG:colcon.colcon_core.event_reactor:joined thread
+[2.542s] INFO:colcon.colcon_core.shell:Creating prefix script '/root/Gazebo_WS/src/gazebo_practise/install/local_setup.ps1'
+[2.563s] INFO:colcon.colcon_core.shell:Creating prefix util module '/root/Gazebo_WS/src/gazebo_practise/install/_local_setup_util_ps1.py'
+[2.566s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/root/Gazebo_WS/src/gazebo_practise/install/setup.ps1'
+[2.568s] INFO:colcon.colcon_core.shell:Creating prefix script '/root/Gazebo_WS/src/gazebo_practise/install/local_setup.sh'
+[2.570s] INFO:colcon.colcon_core.shell:Creating prefix util module '/root/Gazebo_WS/src/gazebo_practise/install/_local_setup_util_sh.py'
+[2.570s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/root/Gazebo_WS/src/gazebo_practise/install/setup.sh'
+[2.572s] INFO:colcon.colcon_core.shell:Creating prefix script '/root/Gazebo_WS/src/gazebo_practise/install/local_setup.bash'
+[2.573s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/root/Gazebo_WS/src/gazebo_practise/install/setup.bash'
+[2.575s] INFO:colcon.colcon_core.shell:Creating prefix script '/root/Gazebo_WS/src/gazebo_practise/install/local_setup.zsh'
+[2.576s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/root/Gazebo_WS/src/gazebo_practise/install/setup.zsh'

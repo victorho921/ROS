@@ -1,0 +1,1 @@
+/root/Gazebo_WS/src/gazebo_practise/launch/send_trajectory.launch.py

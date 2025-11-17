@@ -1,0 +1,1 @@
+/root/Gazebo_WS/src/franka_moveit_config/launch/warehouse_db.launch.py

@@ -1,0 +1,1 @@
+/root/Gazebo_WS/build/gazebo_practise/ament_cmake_environment_hooks/local_setup.bash

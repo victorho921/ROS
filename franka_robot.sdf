@@ -1,0 +1,807 @@
+<sdf version='1.7'>
+  <model name='fr3'>
+    <joint name='world_joint' type='fixed'>
+      <pose relative_to='__model__'>0 0 0 0 -0 0</pose>
+      <parent>world</parent>
+      <child>fr3_link0</child>
+    </joint>
+    <link name='fr3_link0'>
+      <pose relative_to='world_joint'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>-0.0172 0.0004 0.0745 0 -0 0</pose>
+        <mass>2.3966</mass>
+        <inertia>
+          <ixx>0.009</ixx>
+          <ixy>0</ixy>
+          <ixz>0.002</ixz>
+          <iyy>0.0115</iyy>
+          <iyz>0</iyz>
+          <izz>0.0085</izz>
+        </inertia>
+      </inertial>
+      <collision name='fr3_link0_collision_collision'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://franka_description/meshes/robot_arms/fr3/collision/link0.stl</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='fr3_link0_visual_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://franka_description/meshes/robot_arms/fr3/visual/link0.dae</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+    <joint name='fr3_joint1' type='revolute'>
+      <pose relative_to='fr3_link0'>0 0 0.333 0 -0 0</pose>
+      <parent>fr3_link0</parent>
+      <child>fr3_link1</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <lower>-2.7437</lower>
+          <upper>2.7437</upper>
+          <effort>87</effort>
+          <velocity>2.62</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.003</damping>
+          <friction>0.2</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+      <physics>
+        <ode>
+          <limit>
+            <cfm>0</cfm>
+            <erp>0.2</erp>
+          </limit>
+          <provide_feedback>1</provide_feedback>
+        </ode>
+        <provide_feedback>1</provide_feedback>
+      </physics>
+    </joint>
+    <link name='fr3_link1'>
+      <pose relative_to='fr3_joint1'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>0 -0.018125 -0.038604 0 -0 0</pose>
+        <mass>2.92747</mass>
+        <inertia>
+          <ixx>0.0239273</ixx>
+          <ixy>1.33179e-05</ixy>
+          <ixz>-0.000114048</ixz>
+          <iyy>0.0224822</iyy>
+          <iyz>-0.00199503</iyz>
+          <izz>0.0063501</izz>
+        </inertia>
+      </inertial>
+      <collision name='fr3_link1_collision_collision'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://franka_description/meshes/robot_arms/fr3/collision/link1.stl</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='fr3_link1_visual_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://franka_description/meshes/robot_arms/fr3/visual/link1.dae</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+    <joint name='fr3_joint2' type='revolute'>
+      <pose relative_to='fr3_link1'>0 0 0 -1.5708 0 0</pose>
+      <parent>fr3_link1</parent>
+      <child>fr3_link2</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <lower>-1.7837</lower>
+          <upper>1.7837</upper>
+          <effort>87</effort>
+          <velocity>2.62</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.003</damping>
+          <friction>0.2</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+      <physics>
+        <ode>
+          <limit>
+            <cfm>0</cfm>
+            <erp>0.2</erp>
+          </limit>
+          <provide_feedback>1</provide_feedback>
+        </ode>
+        <provide_feedback>1</provide_feedback>
+      </physics>
+    </joint>
+    <link name='fr3_link2'>
+      <pose relative_to='fr3_joint2'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>0.003183 -0.074322 0.008815 0 -0 0</pose>
+        <mass>2.93554</mass>
+        <inertia>
+          <ixx>0.0419389</ixx>
+          <ixy>0.000202573</ixy>
+          <ixz>0.00407778</ixz>
+          <iyy>0.0251451</iyy>
+          <iyz>-0.00422522</iyz>
+          <izz>0.0617021</izz>
+        </inertia>
+      </inertial>
+      <collision name='fr3_link2_collision_collision'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://franka_description/meshes/robot_arms/fr3/collision/link2.stl</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='fr3_link2_visual_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://franka_description/meshes/robot_arms/fr3/visual/link2.dae</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+    <joint name='fr3_joint3' type='revolute'>
+      <pose relative_to='fr3_link2'>0 -0.316 0 1.5708 -0 0</pose>
+      <parent>fr3_link2</parent>
+      <child>fr3_link3</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <lower>-2.9007</lower>
+          <upper>2.9007</upper>
+          <effort>87</effort>
+          <velocity>2.62</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.003</damping>
+          <friction>0.2</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+      <physics>
+        <ode>
+          <limit>
+            <cfm>0</cfm>
+            <erp>0.2</erp>
+          </limit>
+          <provide_feedback>1</provide_feedback>
+        </ode>
+        <provide_feedback>1</provide_feedback>
+      </physics>
+    </joint>
+    <link name='fr3_link3'>
+      <pose relative_to='fr3_joint3'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>0.040702 -0.00482 -0.028973 0 -0 0</pose>
+        <mass>2.2449</mass>
+        <inertia>
+          <ixx>0.0241014</ixx>
+          <ixy>0.00240469</ixy>
+          <ixz>-0.00285627</ixz>
+          <iyy>0.0197405</iyy>
+          <iyz>-0.00210421</iyz>
+          <izz>0.0190445</izz>
+        </inertia>
+      </inertial>
+      <collision name='fr3_link3_collision_collision'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://franka_description/meshes/robot_arms/fr3/collision/link3.stl</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='fr3_link3_visual_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://franka_description/meshes/robot_arms/fr3/visual/link3.dae</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+    <joint name='fr3_joint4' type='revolute'>
+      <pose relative_to='fr3_link3'>0.0825 0 0 1.5708 -0 0</pose>
+      <parent>fr3_link3</parent>
+      <child>fr3_link4</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <lower>-3.0421</lower>
+          <upper>-0.1518</upper>
+          <effort>87</effort>
+          <velocity>2.62</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.003</damping>
+          <friction>0.2</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+      <physics>
+        <ode>
+          <limit>
+            <cfm>0</cfm>
+            <erp>0.2</erp>
+          </limit>
+          <provide_feedback>1</provide_feedback>
+        </ode>
+        <provide_feedback>1</provide_feedback>
+      </physics>
+    </joint>
+    <link name='fr3_link4'>
+      <pose relative_to='fr3_joint4'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>-0.04591 0.063049 -0.008519 0 -0 0</pose>
+        <mass>2.6156</mass>
+        <inertia>
+          <ixx>0.03453</ixx>
+          <ixy>0.0132255</ixy>
+          <ixz>0.0101514</ixz>
+          <iyy>0.0288816</iyy>
+          <iyz>-0.000976283</iyz>
+          <izz>0.0412547</izz>
+        </inertia>
+      </inertial>
+      <collision name='fr3_link4_collision_collision'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://franka_description/meshes/robot_arms/fr3/collision/link4.stl</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='fr3_link4_visual_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://franka_description/meshes/robot_arms/fr3/visual/link4.dae</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+    <joint name='fr3_joint5' type='revolute'>
+      <pose relative_to='fr3_link4'>-0.0825 0.384 0 -1.5708 0 0</pose>
+      <parent>fr3_link4</parent>
+      <child>fr3_link5</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <lower>-2.8065</lower>
+          <upper>2.8065</upper>
+          <effort>12</effort>
+          <velocity>5.26</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.003</damping>
+          <friction>0.2</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+      <physics>
+        <ode>
+          <limit>
+            <cfm>0</cfm>
+            <erp>0.2</erp>
+          </limit>
+          <provide_feedback>1</provide_feedback>
+        </ode>
+        <provide_feedback>1</provide_feedback>
+      </physics>
+    </joint>
+    <link name='fr3_link5'>
+      <pose relative_to='fr3_joint5'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>-0.001604 0.029254 -0.097297 0 -0 0</pose>
+        <mass>2.32712</mass>
+        <inertia>
+          <ixx>0.0516103</ixx>
+          <ixy>-0.00571517</ixy>
+          <ixz>-0.00356732</ixz>
+          <iyy>0.0478773</iyy>
+          <iyz>0.010674</iyz>
+          <izz>0.0164236</izz>
+        </inertia>
+      </inertial>
+      <collision name='fr3_link5_collision_collision'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://franka_description/meshes/robot_arms/fr3/collision/link5.stl</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='fr3_link5_visual_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://franka_description/meshes/robot_arms/fr3/visual/link5.dae</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+    <joint name='fr3_joint6' type='revolute'>
+      <pose relative_to='fr3_link5'>0 0 0 1.5708 -0 0</pose>
+      <parent>fr3_link5</parent>
+      <child>fr3_link6</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <lower>0.5445</lower>
+          <upper>4.5169</upper>
+          <effort>12</effort>
+          <velocity>4.18</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.003</damping>
+          <friction>0.2</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+      <physics>
+        <ode>
+          <limit>
+            <cfm>0</cfm>
+            <erp>0.2</erp>
+          </limit>
+          <provide_feedback>1</provide_feedback>
+        </ode>
+        <provide_feedback>1</provide_feedback>
+      </physics>
+    </joint>
+    <link name='fr3_link6'>
+      <pose relative_to='fr3_joint6'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>0.059713 -0.041029 -0.010169 0 -0 0</pose>
+        <mass>1.81704</mass>
+        <inertia>
+          <ixx>0.00541233</ixx>
+          <ixy>0.00619346</ixy>
+          <ixz>0.00142193</ixz>
+          <iyy>0.0140583</iyy>
+          <iyz>-0.00131408</iyz>
+          <izz>0.0160808</izz>
+        </inertia>
+      </inertial>
+      <collision name='fr3_link6_collision_collision'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://franka_description/meshes/robot_arms/fr3/collision/link6.stl</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='fr3_link6_visual_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://franka_description/meshes/robot_arms/fr3/visual/link6.dae</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+    <joint name='fr3_joint7' type='revolute'>
+      <pose relative_to='fr3_link6'>0.088 0 0 1.5708 -0 0</pose>
+      <parent>fr3_link6</parent>
+      <child>fr3_link7</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <lower>-3.0159</lower>
+          <upper>3.0159</upper>
+          <effort>12</effort>
+          <velocity>5.26</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.003</damping>
+          <friction>0.2</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+      <physics>
+        <ode>
+          <limit>
+            <cfm>0</cfm>
+            <erp>0.2</erp>
+          </limit>
+          <provide_feedback>1</provide_feedback>
+        </ode>
+        <provide_feedback>1</provide_feedback>
+      </physics>
+    </joint>
+    <link name='fr3_link7'>
+      <pose relative_to='fr3_joint7'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>-0.001714 0.00779 0.066222 0 -0 0</pose>
+        <mass>1.35714</mass>
+        <inertia>
+          <ixx>0.00987533</ixx>
+          <ixy>0.000719585</ixy>
+          <ixz>0.000644661</ixz>
+          <iyy>0.00988612</iyy>
+          <iyz>0.00016779</iyz>
+          <izz>0.00180609</izz>
+        </inertia>
+      </inertial>
+      <collision name='fr3_link7_collision_collision'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://franka_description/meshes/robot_arms/fr3/collision/link7.stl</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <collision name='fr3_link7_fixed_joint_lump__fr3_hand_collision_collision_1'>
+        <pose>0 0 0.107 0 0 -0.785398</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://franka_description/meshes/robot_ee/franka_hand_white/collision/hand.stl</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='fr3_link7_visual_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://franka_description/meshes/robot_arms/fr3/visual/link7.dae</uri>
+          </mesh>
+        </geometry>
+      </visual>
+      <visual name='fr3_link7_fixed_joint_lump__fr3_hand_visual_visual_1'>
+        <pose>0 0 0.107 0 0 -0.785398</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://franka_description/meshes/robot_ee/franka_hand_white/visual/hand.dae</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+    <joint name='fr3_finger_joint1' type='prismatic'>
+      <pose relative_to='fr3_link7'>0 0 0.1654 0 0 -0.785398</pose>
+      <parent>fr3_link7</parent>
+      <child>fr3_leftfinger</child>
+      <axis>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>0</lower>
+          <upper>0.04</upper>
+          <effort>100</effort>
+          <velocity>0.2</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.3</damping>
+          <friction>0</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+      <physics>
+        <provide_feedback>1</provide_feedback>
+        <ode>
+          <limit>
+            <cfm>0</cfm>
+            <erp>0.2</erp>
+          </limit>
+          <provide_feedback>1</provide_feedback>
+        </ode>
+      </physics>
+    </joint>
+    <link name='fr3_leftfinger'>
+      <pose relative_to='fr3_finger_joint1'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>0 0 0 0 -0 0</pose>
+        <mass>0.015</mass>
+        <inertia>
+          <ixx>2.375e-06</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>2.375e-06</iyy>
+          <iyz>0</iyz>
+          <izz>7.5e-07</izz>
+        </inertia>
+      </inertial>
+      <collision name='fr3_leftfinger_collision'>
+        <pose>0 0.0185 0.011 0 -0 0</pose>
+        <geometry>
+          <box>
+            <size>0.022 0.015 0.02</size>
+          </box>
+        </geometry>
+        <max_contacts>10</max_contacts>
+        <surface>
+          <contact>
+            <ode>
+              <max_vel>0</max_vel>
+              <min_depth>0.001</min_depth>
+            </ode>
+          </contact>
+          <friction>
+            <ode>
+              <mu>1.13</mu>
+              <mu2>1.13</mu2>
+            </ode>
+          </friction>
+          <bounce/>
+        </surface>
+      </collision>
+      <collision name='fr3_leftfinger_collision_1'>
+        <pose>0 0.0068 0.0022 0 -0 0</pose>
+        <geometry>
+          <box>
+            <size>0.022 0.0088 0.0038</size>
+          </box>
+        </geometry>
+        <max_contacts>10</max_contacts>
+        <surface>
+          <contact>
+            <ode>
+              <max_vel>0</max_vel>
+              <min_depth>0.001</min_depth>
+            </ode>
+          </contact>
+          <friction>
+            <ode>
+              <mu>1.13</mu>
+              <mu2>1.13</mu2>
+            </ode>
+          </friction>
+          <bounce/>
+        </surface>
+      </collision>
+      <collision name='fr3_leftfinger_collision_2'>
+        <pose>0 0.0159 0.02835 0.523599 -0 0</pose>
+        <geometry>
+          <box>
+            <size>0.0175 0.007 0.0235</size>
+          </box>
+        </geometry>
+        <max_contacts>10</max_contacts>
+        <surface>
+          <contact>
+            <ode>
+              <max_vel>0</max_vel>
+              <min_depth>0.001</min_depth>
+            </ode>
+          </contact>
+          <friction>
+            <ode>
+              <mu>1.13</mu>
+              <mu2>1.13</mu2>
+            </ode>
+          </friction>
+          <bounce/>
+        </surface>
+      </collision>
+      <collision name='fr3_leftfinger_collision_3'>
+        <pose>0 0.00758 0.04525 0 -0 0</pose>
+        <geometry>
+          <box>
+            <size>0.0175 0.0152 0.0185</size>
+          </box>
+        </geometry>
+        <max_contacts>10</max_contacts>
+        <surface>
+          <contact>
+            <ode>
+              <max_vel>0</max_vel>
+              <min_depth>0.001</min_depth>
+            </ode>
+          </contact>
+          <friction>
+            <ode>
+              <mu>1.13</mu>
+              <mu2>1.13</mu2>
+            </ode>
+          </friction>
+          <bounce/>
+        </surface>
+      </collision>
+      <visual name='fr3_leftfinger_visual_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://franka_description/meshes/robot_ee/franka_hand_white/visual/finger.dae</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+    <joint name='fr3_finger_joint2' type='prismatic'>
+      <pose relative_to='fr3_link7'>0 0 0.1654 0 0 -0.785398</pose>
+      <parent>fr3_link7</parent>
+      <child>fr3_rightfinger</child>
+      <axis>
+        <xyz>0 -1 0</xyz>
+        <limit>
+          <lower>0</lower>
+          <upper>0.04</upper>
+          <effort>100</effort>
+          <velocity>0.2</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.3</damping>
+          <friction>0</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+      <physics>
+        <provide_feedback>1</provide_feedback>
+        <ode>
+          <limit>
+            <cfm>0</cfm>
+            <erp>0.2</erp>
+          </limit>
+          <provide_feedback>1</provide_feedback>
+        </ode>
+      </physics>
+    </joint>
+    <link name='fr3_rightfinger'>
+      <pose relative_to='fr3_finger_joint2'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>0 0 0 0 -0 0</pose>
+        <mass>0.015</mass>
+        <inertia>
+          <ixx>2.375e-06</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>2.375e-06</iyy>
+          <iyz>0</iyz>
+          <izz>7.5e-07</izz>
+        </inertia>
+      </inertial>
+      <collision name='fr3_rightfinger_collision'>
+        <pose>0 -0.0185 0.011 0 -0 0</pose>
+        <geometry>
+          <box>
+            <size>0.022 0.015 0.02</size>
+          </box>
+        </geometry>
+        <max_contacts>10</max_contacts>
+        <surface>
+          <contact>
+            <ode>
+              <max_vel>0</max_vel>
+              <min_depth>0.001</min_depth>
+            </ode>
+          </contact>
+          <friction>
+            <ode>
+              <mu>1.13</mu>
+              <mu2>1.13</mu2>
+            </ode>
+          </friction>
+          <bounce/>
+        </surface>
+      </collision>
+      <collision name='fr3_rightfinger_collision_1'>
+        <pose>0 -0.0068 0.0022 0 -0 0</pose>
+        <geometry>
+          <box>
+            <size>0.022 0.0088 0.0038</size>
+          </box>
+        </geometry>
+        <max_contacts>10</max_contacts>
+        <surface>
+          <contact>
+            <ode>
+              <max_vel>0</max_vel>
+              <min_depth>0.001</min_depth>
+            </ode>
+          </contact>
+          <friction>
+            <ode>
+              <mu>1.13</mu>
+              <mu2>1.13</mu2>
+            </ode>
+          </friction>
+          <bounce/>
+        </surface>
+      </collision>
+      <collision name='fr3_rightfinger_collision_2'>
+        <pose>0 -0.0159 0.02835 -0.523599 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.0175 0.007 0.0235</size>
+          </box>
+        </geometry>
+        <max_contacts>10</max_contacts>
+        <surface>
+          <contact>
+            <ode>
+              <max_vel>0</max_vel>
+              <min_depth>0.001</min_depth>
+            </ode>
+          </contact>
+          <friction>
+            <ode>
+              <mu>1.13</mu>
+              <mu2>1.13</mu2>
+            </ode>
+          </friction>
+          <bounce/>
+        </surface>
+      </collision>
+      <collision name='fr3_rightfinger_collision_3'>
+        <pose>0 -0.00758 0.04525 0 -0 0</pose>
+        <geometry>
+          <box>
+            <size>0.0175 0.0152 0.0185</size>
+          </box>
+        </geometry>
+        <max_contacts>10</max_contacts>
+        <surface>
+          <contact>
+            <ode>
+              <max_vel>0</max_vel>
+              <min_depth>0.001</min_depth>
+            </ode>
+          </contact>
+          <friction>
+            <ode>
+              <mu>1.13</mu>
+              <mu2>1.13</mu2>
+            </ode>
+          </friction>
+          <bounce/>
+        </surface>
+      </collision>
+      <visual name='fr3_rightfinger_visual_visual'>
+        <pose>0 0 0 0 -0 3.14159</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://franka_description/meshes/robot_ee/franka_hand_white/visual/finger.dae</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+    <static>0</static>
+    <plugin name='ign_ros2_control::IgnitionROS2ControlPlugin' filename='libign_ros2_control-system.so'>
+      <robot_param>robot_description</robot_param>
+      <robot_param_node>robot_state_publisher</robot_param_node>
+      <parameters>/root/Gazebo_WS/install/gazebo_practise/share/gazebo_practise/controller_config/controller.yaml</parameters>
+    </plugin>
+  </model>
+</sdf>

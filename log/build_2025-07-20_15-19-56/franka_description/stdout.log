@@ -1,0 +1,120 @@
+-- Found ament_cmake: 1.3.11 (/opt/ros/humble/share/ament_cmake/cmake)
+-- Override CMake install command with custom implementation using symlinks instead of copying resources
+-- Found ament_lint_auto: 0.12.11 (/opt/ros/humble/share/ament_lint_auto/cmake)
+-- Added test 'copyright' to check source files copyright and LICENSE
+-- Added test 'flake8' to check Python code syntax and style conventions
+-- Added test 'lint_cmake' to check CMake code style
+-- Added test 'pep257' to check Python code against some of the docstring style conventions in PEP 257
+-- Added test 'xmllint' to check XML markup files
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /root/Gazebo_WS/build/franka_description
+-- Install configuration: ""
+-- Execute custom install script
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description//launch/visualize_franka.launch.py
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description//robots/common/franka_arm.ros2_control.xacro
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description//robots/common/franka_arm.xacro
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description//robots/common/franka_robot.xacro
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description//robots/common/utils.xacro
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description//robots/fer/dynamics.yaml
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description//robots/fer/fer.urdf.xacro
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description//robots/fer/inertials.yaml
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description//robots/fer/joint_limits.yaml
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description//robots/fer/kinematics.yaml
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description//robots/fp3/dynamics.yaml
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description//robots/fp3/fp3.urdf.xacro
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description//robots/fp3/inertials.yaml
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description//robots/fp3/joint_limits.yaml
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description//robots/fp3/kinematics.yaml
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description//robots/fr3/dynamics.yaml
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description//robots/fr3/fr3.urdf.xacro
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description//robots/fr3/inertials.yaml
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description//robots/fr3/joint_limits.yaml
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description//robots/fr3/kinematics.yaml
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description//robots/multi_arm/multi_arm.urdf.xacro
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description//end_effectors/cobot_pump/cobot_pump.urdf.xacro
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description//end_effectors/cobot_pump/cobot_pump_arguments.xacro
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description//end_effectors/cobot_pump/inertials.yaml
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description//end_effectors/common/ee_with_one_link.xacro
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description//end_effectors/common/franka_hand.xacro
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description//end_effectors/common/utils.xacro
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description//end_effectors/franka_hand/franka_hand.urdf.xacro
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description//end_effectors/franka_hand/franka_hand_arguments.xacro
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description//end_effectors/franka_hand/inertials.yaml
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description//meshes/robot_arms/fer/collision/hand.stl
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description//meshes/robot_arms/fer/collision/link0.stl
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description//meshes/robot_arms/fer/collision/link1.stl
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description//meshes/robot_arms/fer/collision/link2.stl
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description//meshes/robot_arms/fer/collision/link3.stl
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description//meshes/robot_arms/fer/collision/link4.stl
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description//meshes/robot_arms/fer/collision/link5.stl
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description//meshes/robot_arms/fer/collision/link6.stl
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description//meshes/robot_arms/fer/collision/link7.stl
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description//meshes/robot_arms/fer/visual/finger.dae
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description//meshes/robot_arms/fer/visual/hand.dae
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description//meshes/robot_arms/fer/visual/link0.dae
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description//meshes/robot_arms/fer/visual/link1.dae
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description//meshes/robot_arms/fer/visual/link2.dae
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description//meshes/robot_arms/fer/visual/link3.dae
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description//meshes/robot_arms/fer/visual/link4.dae
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description//meshes/robot_arms/fer/visual/link5.dae
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description//meshes/robot_arms/fer/visual/link6.dae
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description//meshes/robot_arms/fer/visual/link7.dae
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description//meshes/robot_arms/fp3/collision/link0.stl
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description//meshes/robot_arms/fp3/collision/link1.stl
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description//meshes/robot_arms/fp3/collision/link2.stl
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description//meshes/robot_arms/fp3/collision/link3.stl
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description//meshes/robot_arms/fp3/collision/link4.stl
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description//meshes/robot_arms/fp3/collision/link5.stl
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description//meshes/robot_arms/fp3/collision/link6.stl
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description//meshes/robot_arms/fp3/collision/link7.stl
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description//meshes/robot_arms/fp3/visual/link0.dae
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description//meshes/robot_arms/fp3/visual/link1.dae
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description//meshes/robot_arms/fp3/visual/link2.dae
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description//meshes/robot_arms/fp3/visual/link3.dae
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description//meshes/robot_arms/fp3/visual/link4.dae
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description//meshes/robot_arms/fp3/visual/link5.dae
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description//meshes/robot_arms/fp3/visual/link6.dae
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description//meshes/robot_arms/fp3/visual/link7.dae
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description//meshes/robot_arms/fr3/collision/link0.stl
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description//meshes/robot_arms/fr3/collision/link1.stl
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description//meshes/robot_arms/fr3/collision/link2.stl
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description//meshes/robot_arms/fr3/collision/link3.stl
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description//meshes/robot_arms/fr3/collision/link4.stl
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description//meshes/robot_arms/fr3/collision/link5.stl
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description//meshes/robot_arms/fr3/collision/link6.stl
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description//meshes/robot_arms/fr3/collision/link7.stl
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description//meshes/robot_arms/fr3/visual/link0.dae
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description//meshes/robot_arms/fr3/visual/link1.dae
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description//meshes/robot_arms/fr3/visual/link2.dae
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description//meshes/robot_arms/fr3/visual/link3.dae
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description//meshes/robot_arms/fr3/visual/link4.dae
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description//meshes/robot_arms/fr3/visual/link5.dae
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description//meshes/robot_arms/fr3/visual/link6.dae
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description//meshes/robot_arms/fr3/visual/link7.dae
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description//meshes/robot_ee/cobot_pump/collision/cobot_pump.stl
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description//meshes/robot_ee/cobot_pump/visual/cobot_pump.dae
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description//meshes/robot_ee/franka_hand_black/collision/hand.stl
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description//meshes/robot_ee/franka_hand_black/visual/finger.dae
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description//meshes/robot_ee/franka_hand_black/visual/hand.dae
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description//meshes/robot_ee/franka_hand_white/collision/hand.stl
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description//meshes/robot_ee/franka_hand_white/visual/finger.dae
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description//meshes/robot_ee/franka_hand_white/visual/hand.dae
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description//rviz/visualize_franka.rviz
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description//urdfs/fr3_franka_hand.sdf
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description//urdfs/fr3_franka_hand.urdf
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/ament_index/resource_index/package_run_dependencies/franka_description
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/ament_index/resource_index/parent_prefix_path/franka_description
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description/environment/ament_prefix_path.sh
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description/environment/ament_prefix_path.dsv
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description/environment/path.sh
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description/environment/path.dsv
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description/local_setup.bash
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description/local_setup.sh
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description/local_setup.zsh
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description/local_setup.dsv
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description/package.dsv
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/ament_index/resource_index/packages/franka_description
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description/cmake/franka_descriptionConfig.cmake
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description/cmake/franka_descriptionConfig-version.cmake
+-- Symlinking: /root/Gazebo_WS/install/franka_description/share/franka_description/package.xml

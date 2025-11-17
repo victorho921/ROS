@@ -1,0 +1,2 @@
+[0.033s] Invoking command in '/root/Gazebo_WS/src/gazebo_practise/build/gazebo_practise': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake /root/Gazebo_WS/src/gazebo_practise -DCMAKE_INSTALL_PREFIX=/root/Gazebo_WS/src/gazebo_practise/install/gazebo_practise
+[0.664s] Invoked command in '/root/Gazebo_WS/src/gazebo_practise/build/gazebo_practise' returned '-2': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake /root/Gazebo_WS/src/gazebo_practise -DCMAKE_INSTALL_PREFIX=/root/Gazebo_WS/src/gazebo_practise/install/gazebo_practise

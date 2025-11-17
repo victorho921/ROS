@@ -1,0 +1,60 @@
+[0.012s] Invoking command in '/root/Gazebo_WS/build/franka_moveit_config': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/root/Moveit2_WS/install/moveit_configs_utils:/root/Moveit2_WS/install/launch_param_builder:/opt/ros/humble /usr/bin/cmake /root/Gazebo_WS/src/franka_moveit_config -DCMAKE_INSTALL_PREFIX=/root/Gazebo_WS/install/franka_moveit_config
+[1.006s] -- The C compiler identification is GNU 11.4.0
+[5.777s] -- The CXX compiler identification is GNU 11.4.0
+[8.683s] -- Detecting C compiler ABI info
+[9.978s] -- Detecting C compiler ABI info - done
+[9.985s] -- Check for working C compiler: /usr/bin/cc - skipped
+[10.004s] -- Detecting C compile features
+[10.006s] -- Detecting C compile features - done
+[10.011s] -- Detecting CXX compiler ABI info
+[11.122s] -- Detecting CXX compiler ABI info - done
+[11.127s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[11.127s] -- Detecting CXX compile features
+[11.127s] -- Detecting CXX compile features - done
+[11.177s] -- Found ament_cmake: 1.3.11 (/opt/ros/humble/share/ament_cmake/cmake)
+[11.285s] -- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+[11.432s] -- Configuring done
+[11.433s] -- Generating done
+[11.434s] -- Build files have been written to: /root/Gazebo_WS/build/franka_moveit_config
+[11.438s] Invoked command in '/root/Gazebo_WS/build/franka_moveit_config' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/root/Moveit2_WS/install/moveit_configs_utils:/root/Moveit2_WS/install/launch_param_builder:/opt/ros/humble /usr/bin/cmake /root/Gazebo_WS/src/franka_moveit_config -DCMAKE_INSTALL_PREFIX=/root/Gazebo_WS/install/franka_moveit_config
+[11.439s] Invoking command in '/root/Gazebo_WS/build/franka_moveit_config': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/root/Moveit2_WS/install/moveit_configs_utils:/root/Moveit2_WS/install/launch_param_builder:/opt/ros/humble /usr/bin/cmake --build /root/Gazebo_WS/build/franka_moveit_config -- -j20 -l20
+[11.464s] Invoked command in '/root/Gazebo_WS/build/franka_moveit_config' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/root/Moveit2_WS/install/moveit_configs_utils:/root/Moveit2_WS/install/launch_param_builder:/opt/ros/humble /usr/bin/cmake --build /root/Gazebo_WS/build/franka_moveit_config -- -j20 -l20
+[11.469s] Invoking command in '/root/Gazebo_WS/build/franka_moveit_config': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/root/Moveit2_WS/install/moveit_configs_utils:/root/Moveit2_WS/install/launch_param_builder:/opt/ros/humble /usr/bin/cmake --install /root/Gazebo_WS/build/franka_moveit_config
+[11.473s] -- Install configuration: ""
+[11.474s] -- Installing: /root/Gazebo_WS/install/franka_moveit_config/share/ament_index/resource_index/package_run_dependencies/franka_moveit_config
+[11.474s] -- Installing: /root/Gazebo_WS/install/franka_moveit_config/share/ament_index/resource_index/parent_prefix_path/franka_moveit_config
+[11.474s] -- Installing: /root/Gazebo_WS/install/franka_moveit_config/share/franka_moveit_config/environment/ament_prefix_path.sh
+[11.475s] -- Installing: /root/Gazebo_WS/install/franka_moveit_config/share/franka_moveit_config/environment/ament_prefix_path.dsv
+[11.475s] -- Installing: /root/Gazebo_WS/install/franka_moveit_config/share/franka_moveit_config/environment/path.sh
+[11.475s] -- Installing: /root/Gazebo_WS/install/franka_moveit_config/share/franka_moveit_config/environment/path.dsv
+[11.475s] -- Installing: /root/Gazebo_WS/install/franka_moveit_config/share/franka_moveit_config/local_setup.bash
+[11.475s] -- Installing: /root/Gazebo_WS/install/franka_moveit_config/share/franka_moveit_config/local_setup.sh
+[11.475s] -- Installing: /root/Gazebo_WS/install/franka_moveit_config/share/franka_moveit_config/local_setup.zsh
+[11.475s] -- Installing: /root/Gazebo_WS/install/franka_moveit_config/share/franka_moveit_config/local_setup.dsv
+[11.475s] -- Installing: /root/Gazebo_WS/install/franka_moveit_config/share/franka_moveit_config/package.dsv
+[11.475s] -- Installing: /root/Gazebo_WS/install/franka_moveit_config/share/ament_index/resource_index/packages/franka_moveit_config
+[11.475s] -- Installing: /root/Gazebo_WS/install/franka_moveit_config/share/franka_moveit_config/cmake/franka_moveit_configConfig.cmake
+[11.475s] -- Installing: /root/Gazebo_WS/install/franka_moveit_config/share/franka_moveit_config/cmake/franka_moveit_configConfig-version.cmake
+[11.475s] -- Installing: /root/Gazebo_WS/install/franka_moveit_config/share/franka_moveit_config/package.xml
+[11.475s] -- Installing: /root/Gazebo_WS/install/franka_moveit_config/share/franka_moveit_config/launch
+[11.476s] -- Installing: /root/Gazebo_WS/install/franka_moveit_config/share/franka_moveit_config/launch/move_group.launch.py
+[11.476s] -- Installing: /root/Gazebo_WS/install/franka_moveit_config/share/franka_moveit_config/launch/static_virtual_joint_tfs.launch.py
+[11.476s] -- Installing: /root/Gazebo_WS/install/franka_moveit_config/share/franka_moveit_config/launch/rsp.launch.py
+[11.476s] -- Installing: /root/Gazebo_WS/install/franka_moveit_config/share/franka_moveit_config/launch/moveit_rviz.launch.py
+[11.477s] -- Installing: /root/Gazebo_WS/install/franka_moveit_config/share/franka_moveit_config/launch/demo.launch.py
+[11.477s] -- Installing: /root/Gazebo_WS/install/franka_moveit_config/share/franka_moveit_config/launch/warehouse_db.launch.py
+[11.477s] -- Installing: /root/Gazebo_WS/install/franka_moveit_config/share/franka_moveit_config/launch/setup_assistant.launch.py
+[11.477s] -- Installing: /root/Gazebo_WS/install/franka_moveit_config/share/franka_moveit_config/launch/spawn_controllers.launch.py
+[11.478s] -- Installing: /root/Gazebo_WS/install/franka_moveit_config/share/franka_moveit_config/config
+[11.478s] -- Installing: /root/Gazebo_WS/install/franka_moveit_config/share/franka_moveit_config/config/moveit.rviz
+[11.478s] -- Installing: /root/Gazebo_WS/install/franka_moveit_config/share/franka_moveit_config/config/fr3.urdf.xacro
+[11.478s] -- Installing: /root/Gazebo_WS/install/franka_moveit_config/share/franka_moveit_config/config/moveit_controllers.yaml
+[11.479s] -- Installing: /root/Gazebo_WS/install/franka_moveit_config/share/franka_moveit_config/config/fr3.ros2_control.xacro
+[11.479s] -- Installing: /root/Gazebo_WS/install/franka_moveit_config/share/franka_moveit_config/config/kinematics.yaml
+[11.479s] -- Installing: /root/Gazebo_WS/install/franka_moveit_config/share/franka_moveit_config/config/pilz_cartesian_limits.yaml
+[11.479s] -- Installing: /root/Gazebo_WS/install/franka_moveit_config/share/franka_moveit_config/config/fr3.srdf
+[11.479s] -- Installing: /root/Gazebo_WS/install/franka_moveit_config/share/franka_moveit_config/config/joint_limits.yaml
+[11.480s] -- Installing: /root/Gazebo_WS/install/franka_moveit_config/share/franka_moveit_config/config/initial_positions.yaml
+[11.480s] -- Installing: /root/Gazebo_WS/install/franka_moveit_config/share/franka_moveit_config/config/ros2_controllers.yaml
+[11.480s] -- Installing: /root/Gazebo_WS/install/franka_moveit_config/share/franka_moveit_config/.setup_assistant
+[11.481s] Invoked command in '/root/Gazebo_WS/build/franka_moveit_config' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/root/Moveit2_WS/install/moveit_configs_utils:/root/Moveit2_WS/install/launch_param_builder:/opt/ros/humble /usr/bin/cmake --install /root/Gazebo_WS/build/franka_moveit_config
