@@ -61,7 +61,7 @@ joint_trajectory_controller:
       - fr3_joint7
   
     command_interfaces:
-      - position  # or "velocity", "effort"
+      - position 
       - velocity
     state_interfaces:
       - position

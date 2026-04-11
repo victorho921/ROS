@@ -1,5 +1,4 @@
 /root/Gazebo_WS/install/gazebo_practise/share/gazebo_practise/launch/empty_world.launch.py
-/root/Gazebo_WS/install/gazebo_practise/share/gazebo_practise/launch/frames_2025-02-23_17.58.07.gv
 /root/Gazebo_WS/install/gazebo_practise/share/gazebo_practise/launch/send_trajectory.launch.py
 /root/Gazebo_WS/install/gazebo_practise/share/gazebo_practise/urdf/URDF_Practise.urdf
 /root/Gazebo_WS/install/gazebo_practise/share/gazebo_practise/urdf/URDF_Simple.urdf

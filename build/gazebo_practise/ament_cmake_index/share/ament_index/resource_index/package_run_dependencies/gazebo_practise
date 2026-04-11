@@ -1,1 +1,1 @@
-rclcpp;ros_gz_sim;robot_state_publisher;rviz2;franka_description;ament_lint_auto;ament_lint_common
+rclcpp;ros_gz_sim;robot_state_publisher;rviz2;franka_description;trajectory_msgs;sensor_msgs;ament_lint_auto;ament_lint_common

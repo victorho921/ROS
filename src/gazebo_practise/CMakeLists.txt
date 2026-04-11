@@ -13,6 +13,7 @@ find_package(robot_state_publisher REQUIRED)  # For publishing robot state
 find_package(rviz2 REQUIRED)  # For RViz visualization
 find_package(franka_description REQUIRED)
 find_package(trajectory_msgs REQUIRED)
+find_package(sensor_msgs REQUIRED)
 find_package(Eigen3 REQUIRED)
 find_package(kdl_parser REQUIRED)
 
@@ -48,7 +49,7 @@ install(
   DESTINATION share/${PROJECT_NAME})
 
 add_executable(reference_generator src/reference_generator.cpp)
-ament_target_dependencies(reference_generator rclcpp trajectory_msgs Eigen3 kdl_parser) # add more deps as needed
+ament_target_dependencies(reference_generator rclcpp trajectory_msgs sensor_msgs Eigen3 kdl_parser) # add more deps as needed
 
 install(TARGETS reference_generator
   DESTINATION lib/${PROJECT_NAME}

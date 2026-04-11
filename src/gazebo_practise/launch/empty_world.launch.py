@@ -78,12 +78,13 @@ def generate_launch_description():
         
     )
 
-    # For publishing joint information
-    joint_state_publisher = Node(
-            package='joint_state_publisher_gui',
-            executable='joint_state_publisher_gui',
-            name="joint_state_publisher_gui",
-    )
+    # # For publishing joint information
+    # Only when using Rviz
+    # joint_state_publisher = Node(
+    #         package='joint_state_publisher_gui',
+    #         executable='joint_state_publisher_gui',
+    #         name="joint_state_publisher_gui",
+    # )
 
     # Get the sdf file
     world_path = os.path.join(pkg_robot,'worlds','world.sdf')
@@ -95,13 +96,13 @@ def generate_launch_description():
     )
 
     # For launching Rviz
-    # launch_rviz = Node(
-    #         package='rviz2',
-    #         executable='rviz2',
-    #         name='rviz2',
-    #         output='screen',
-    #         arguments=['-d', rviz_config_path],
-    # )
+    launch_rviz = Node(
+            package='rviz2',
+            executable='rviz2',
+            name='rviz2',
+            output='screen',
+            arguments=['-d', rviz_config_path],
+    )
 
     # For spawning robot node in gazebo
     spawn_robot = Node(
@@ -146,28 +147,27 @@ def generate_launch_description():
         output='screen'
     )
 
-    # ft_bridge = Node(
-    #     package='ros_gz_bridge',
-    #     executable='parameter_bridge',
-    #     name='ft_sensor_bridge',
-    #     output='screen',
-    #     arguments=[
-    #         # ← REPLACE with exact output from `gz topic -l`
-    #         '/model/fr3/link/fr3_link8/sensor/wrist_ft_sensor/force_torque@geometry_msgs/msg/Wrench@ignition.msgs.Wrench'
-    #     ],
-    #     remappings=[
-    #         ('/model/fr3/link/fr3_link8/sensor/wrist_ft_sensor/force_torque', '/wrist_force_torque')
-    #     ]
-    # )
+    ft_bridge = Node(
+        package='ros_gz_bridge',
+        executable='parameter_bridge',
+        name='ft_sensor_bridge',
+        output='screen',
+        arguments=[
+            # ← REPLACE with exact output from `gz topic -l`
+            '/model/fr3/link/fr3_link8/sensor/wrist_ft_sensor/force_torque@geometry_msgs/msg/Wrench@ignition.msgs.Wrench'
+        ],
+        remappings=[
+            ('/model/fr3/link/fr3_link8/sensor/wrist_ft_sensor/force_torque', '/wrist_force_torque')
+        ]
+    )
 
 
     return LaunchDescription([
         robot_state_publisher,
-        joint_state_publisher,
+        # joint_state_publisher,
         launch_gazebo,
         spawn_robot,
-        # launch_rviz,
-
+        launch_rviz,
 
         controller_manager,
         load_joint_state_broadcaster,

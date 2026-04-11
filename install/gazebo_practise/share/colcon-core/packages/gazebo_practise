@@ -1,1 +1,1 @@
-franka_description:rclcpp:robot_state_publisher:ros_gz_sim:rviz2
+franka_description:rclcpp:robot_state_publisher:ros_gz_sim:rviz2:sensor_msgs:trajectory_msgs
