@@ -245,7 +245,30 @@ int main(int argc, char ** argv)
               received_state = true;
               RCLCPP_INFO(node->get_logger(), "Received joint states with %zu joints", msg->position.size());
           }
-      });
+      
+      std::vector<std::string> target_joints = {
+            "fr3_joint1", "fr3_joint2", "fr3_joint3", "fr3_joint4", 
+            "fr3_joint5", "fr3_joint6", "fr3_joint7", "fr3_finger_joint1"
+        };
+
+      std::vector<double> ordered_positions;
+        
+      for (const auto & name : target_joints) {
+          auto it = std::find(msg->name.begin(), msg->name.end(), name);
+          if (it != msg->name.end()) {
+              size_t index = std::distance(msg->name.begin(), it);
+              ordered_positions.push_back(msg->position[index]);
+          }
+      }
+      
+      RCLCPP_INFO(node->get_logger(), "--- Current Arm Positions ---");
+      for (size_t i = 0; i < current_positions.size(); ++i) {
+          RCLCPP_INFO(node->get_logger(), "Joint %zu (%s): %.4f rad", 
+                      i + 1, target_joints[i].c_str(), current_positions[i]);
+      }
+      RCLCPP_INFO(node->get_logger(), "-----------------------------");
+  });
+  
 
   RCLCPP_INFO(node->get_logger(), "Waiting for joint states from /joint_states...");
   while (rclcpp::ok() && !received_state) {

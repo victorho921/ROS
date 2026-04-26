@@ -168,6 +168,7 @@ def generate_launch_description():
         launch_gazebo,
         spawn_robot,
         launch_rviz,
+        ft_bridge,
 
         controller_manager,
         load_joint_state_broadcaster,
