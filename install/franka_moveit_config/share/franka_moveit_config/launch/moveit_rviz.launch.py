@@ -1,1 +1,0 @@
-/root/Gazebo_WS/src/franka_moveit_config/launch/moveit_rviz.launch.py

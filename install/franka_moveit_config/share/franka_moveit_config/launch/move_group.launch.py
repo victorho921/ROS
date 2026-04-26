@@ -1,1 +1,0 @@
-/root/Gazebo_WS/src/franka_moveit_config/launch/move_group.launch.py

@@ -1,1 +1,0 @@
-/root/Gazebo_WS/src/gazebo_practise/launch/empty_world.launch.py
