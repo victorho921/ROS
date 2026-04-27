@@ -1,4 +1,4 @@
-# Gazebo Practise: FR3 Robot Simulation with ROS 2 & Ignition Gazebo
+# Force & Torque Simulation with Fr3 Robot Arm in Gazebo Ignition
 
 ![FR3 Robot in Gazebo](https://img.shields.io/badge/FR3%20Robot-Simulation-success?style=for-the-badge)
 ![ROS 2](https://img.shields.io/badge/ROS%202-Humble%20%7C%20Iron%20%7C%20Jazzy-blue)
@@ -7,8 +7,6 @@
 
 A **fully functional simulation** of the **Franka Emika FR3** robot arm using **ROS 2**, **Ignition Gazebo**, and **ros2_control**.  
 Includes joint control, trajectory execution, force/torque sensing, and GUI joint manipulation.
-
----
 
 ## Features
 

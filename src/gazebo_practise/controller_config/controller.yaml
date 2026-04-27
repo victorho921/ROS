@@ -9,8 +9,8 @@ controller_manager:
     joint_state_broadcaster:
       type: joint_state_broadcaster/JointStateBroadcaster
 
-    robot_controller:
-      type: gazebo_practise/CustomRobotController 
+    # robot_controller:
+    #   type: gazebo_practise/CustomRobotController 
       # gazebo_practise - package name where the plugin is defined
       # CustomRobotController - self defined C++ class name inside the controller program
 
@@ -93,18 +93,18 @@ joint_trajectory_controller:
 #       - position
 #       - velocity
 
-# force_torque_sensor_broadcaster:
-#   ros__parameters:
-#     sensor_name: wrist_ft_sensor
-#     frame_id: fr3_link8
-#     topic_name: /wrist_force_torque
-#     state_interface_names:
-#       - force.x
-#       - force.y
-#       - force.z
-#       - torque.x
-#       - torque.y
-#       - torque.z
+force_torque_sensor_broadcaster:
+  ros__parameters:
+    sensor_name: force_torque_sensor
+    frame_id: fr3_link6
+    topic_name: /force_torque
+    state_interface_names:
+      - force.x
+      - force.y
+      - force.z
+      - torque.x
+      - torque.y
+      - torque.z
 
 
 

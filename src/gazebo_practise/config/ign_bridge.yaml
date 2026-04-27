@@ -1,0 +1,5 @@
+- ros_topic_name: "force_torque"
+  gz_topic_name: "force_torque"
+  ros_type_name: "geometry_msgs/msg/WrenchStamped"
+  gz_type_name: "ignition.msgs.Wrench"
+  direction: GZ_TO_ROS

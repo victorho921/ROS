@@ -1,5 +1,4 @@
-
-<?xml version="1.0" ?>
+<?xml version="1.0"?>
 <sdf version="1.9">
   <world name="empty">
     <physics name="1ms" type="ignored">
@@ -25,8 +24,8 @@
 	  </plugin>
 
     <plugin 
-            filename="ignition-gazebo-forcetorque-system" 
-            name="ignition::gazebo::systems::ForceTorque">
+      filename="ignition-gazebo-forcetorque-system" 
+      name="ignition::gazebo::systems::ForceTorque">
     </plugin>            
 
     <light type="directional" name="sun">
