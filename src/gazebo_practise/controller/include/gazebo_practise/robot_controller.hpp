@@ -12,8 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#ifndef ROS2_CONTROL_DEMO_EXAMPLE_7__R6BOT_CONTROLLER_HPP_
-#define ROS2_CONTROL_DEMO_EXAMPLE_7__R6BOT_CONTROLLER_HPP_
+#ifndef CUSTOM_FRANKA_CONTROLLER_HPP_
+#define CUSTOM_FRANKA_CONTROLLER_HPP_
 
 #include <chrono>
 #include <memory>
@@ -22,6 +22,7 @@
 #include <unordered_map>
 #include <utility>
 #include <vector>
+#include <Eigen/Eigen>
 
 #include "control_msgs/action/follow_joint_trajectory.hpp"
 #include "control_msgs/msg/joint_trajectory_controller_state.hpp"
@@ -39,10 +40,10 @@
 
 namespace Custom_Franka_Controller
 {
-class CustomRobotController : public controller_interface::ControllerInterface
+class HybridFTController : public controller_interface::ControllerInterface
 {
 public:
-  CustomRobotController();
+  HybridFTController();
 
   // Mandatory for Controller Interface
   controller_interface::InterfaceConfiguration command_interface_configuration() const override;
@@ -95,24 +96,43 @@ protected:
     joint_position_command_interface_;
   std::vector<std::reference_wrapper<hardware_interface::LoanedCommandInterface>>
     joint_velocity_command_interface_;
+  // Added effort command interface for 
+  std::vector<std::reference_wrapper<hardware_interface::LoanedCommandInterface>>
+    joint_effort_command_interface_;
   std::vector<std::reference_wrapper<hardware_interface::LoanedStateInterface>>
     joint_position_state_interface_;
   std::vector<std::reference_wrapper<hardware_interface::LoanedStateInterface>>
     joint_velocity_state_interface_;
+  // Added effort state interface for force feedback
+  std::vector<std::reference_wrapper<hardware_interface::LoanedStateInterface>>
+    joint_effort_state_interface_;
+  // Used for the force torque sensor state interface
+  std::reference_wrapper<hardware_interface::LoanedStateInterface> ft_sensor_state_;
 
   std::unordered_map<
     std::string, std::vector<std::reference_wrapper<hardware_interface::LoanedCommandInterface>> *>
     command_interface_map_ = {
       {"position", &joint_position_command_interface_},
-      {"velocity", &joint_velocity_command_interface_}};
+      {"velocity", &joint_velocity_command_interface_},
+      {"effort", &joint_effort_command_interface_}};
 
   std::unordered_map<
     std::string, std::vector<std::reference_wrapper<hardware_interface::LoanedStateInterface>> *>
     state_interface_map_ = {
       {"position", &joint_position_state_interface_},
-      {"velocity", &joint_velocity_state_interface_}};
+      {"velocity", &joint_velocity_state_interface_},
+      {"effort", &joint_effort_state_interface_}};
+  
+  // Controller state for hybrid control
+  enum class State { MOVING, CONTACT };
+  State current_state_ = State::MOVING;
+  
+  // Force threshold and buffer
+  double force_threshold_ = 5.0; // Default, override in on_configure via parameters
+  std::deque<double> force_buffer_; 
+  const size_t buffer_size_ = 5;
 };
 
-}  
+}  // namespace Custom_Franka_Controller
 
 #endif  

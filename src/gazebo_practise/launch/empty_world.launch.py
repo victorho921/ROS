@@ -80,11 +80,11 @@ def generate_launch_description():
 
     # # For publishing joint information
     # Only when using Rviz
-    # joint_state_publisher = Node(
-    #         package='joint_state_publisher_gui',
-    #         executable='joint_state_publisher_gui',
-    #         name="joint_state_publisher_gui",
-    # )
+    joint_state_publisher = Node(
+            package='joint_state_publisher_gui',
+            executable='joint_state_publisher_gui',
+            name="joint_state_publisher_gui",
+    )
 
     # Get the sdf file
     world_path = os.path.join(pkg_robot,'worlds','world.sdf')
@@ -175,10 +175,13 @@ def generate_launch_description():
 #   points: [
 #     {
 #       positions: [1.0, -0.785, 1.0, -2.35, 1.0, 1.57, 0.785],
-#       time_from_start: {sec: 2, nanosec: 0}
+#       time_from_start: {sec: 5, nanosec: 0}
 #     }
 #   ]
 # }"
+
+# Initial position of the robot 
+# positions: [-1.22, 3.86, -0.785, -2.35, -3.044, 1.57, 0.785],
 
 # If cannot not find visual
 # export IGN_GAZEBO_RESOURCE_PATH=$IGN_GAZEBO_RESOURCE_PATH:~/RobotArmSim/src

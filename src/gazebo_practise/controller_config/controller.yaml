@@ -28,24 +28,23 @@ controller_manager:
 
 # Controller parameter
 # Custom controller
-# robot_controller:
-#   ros__parameters:
-#     joints:
-#       - fr3_joint1
-#       - fr3_joint2
-#       - fr3_joint3
-#       - fr3_joint4
-#       - fr3_joint5
-#       - fr3_joint6
-#       - fr3_joint7
+robot_controller:
+  ros__parameters:
+    joints:
+      - fr3_joint1
+      - fr3_joint2
+      - fr3_joint3
+      - fr3_joint4
+      - fr3_joint5
+      - fr3_joint6
+      - fr3_joint7
 
-#     command_interfaces:
-#       - position
-#       - velocity
+    command_interfaces:
+      - effort
 
-#     state_interfaces:
-#       - position
-#       - velocity
+    state_interfaces:
+      - position
+      - velocity
 
 
 joint_trajectory_controller:
@@ -96,7 +95,7 @@ joint_trajectory_controller:
 force_torque_sensor_broadcaster:
   ros__parameters:
     sensor_name: force_torque_sensor
-    frame_id: fr3_link6
+    frame_id: fr3_link7
     topic_name: /force_torque
     state_interface_names:
       - force.x

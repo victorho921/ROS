@@ -30,11 +30,11 @@ using config_type = controller_interface::interface_configuration_type;
 
 namespace Custom_Franka_Controller
 {
-CustomRobotController::CustomRobotController() : controller_interface::ControllerInterface() {}
+HybridFTController::HybridFTController() : controller_interface::ControllerInterface() {}
 
 
 // Read out joint name, command and state interface
-controller_interface::CallbackReturn RobotController::on_init()
+controller_interface::CallbackReturn HybridFTController::on_init()
 {
   // should have error handling
   joint_names_ = auto_declare<std::vector<std::string>>("joints", joint_names_);
@@ -53,7 +53,7 @@ controller_interface::CallbackReturn RobotController::on_init()
 
 // Both command & state interface method is to declare variable (similar) of every joint with command or state
 // e.g: joint1/command, joint2/state
-controller_interface::InterfaceConfiguration RobotController::command_interface_configuration()
+controller_interface::InterfaceConfiguration HybridFTController::command_interface_configuration()
   const
 {
   controller_interface::InterfaceConfiguration conf = {config_type::INDIVIDUAL, {}};
@@ -70,7 +70,7 @@ controller_interface::InterfaceConfiguration RobotController::command_interface_
   return conf;
 }
 
-controller_interface::InterfaceConfiguration RobotController::state_interface_configuration() const
+controller_interface::InterfaceConfiguration HybridFTController::state_interface_configuration() const
 {
   controller_interface::InterfaceConfiguration conf = {config_type::INDIVIDUAL, {}};
 
@@ -87,8 +87,21 @@ controller_interface::InterfaceConfiguration RobotController::state_interface_co
 }
 
 // defining a callback 
-controller_interface::CallbackReturn RobotController::on_configure(const rclcpp_lifecycle::State &)
+controller_interface::CallbackReturn HybridFTController::on_configure(const rclcpp_lifecycle::State &)
 {
+  // Get list of joints from parameters
+  auto joints = get_node()->get_parameter("joints").as_string_array();
+  num_joints_ = joints.size();
+
+  q_.resize(num_joints_);
+  dq_.resize(num_joints_);
+
+  joint_position_interfaces_.clear();
+  joint_velocity_interfaces_.clear();
+
+
+
+
   // pass the message from the subscription to the control loop
   // bascially the input of the motion
   auto callback =
@@ -107,10 +120,10 @@ controller_interface::CallbackReturn RobotController::on_configure(const rclcpp_
   return CallbackReturn::SUCCESS;
 }
 
-controller_interface::CallbackReturn RobotController::on_activate(const rclcpp_lifecycle::State &)
+controller_interface::CallbackReturn HybridFTController::on_activate(const rclcpp_lifecycle::State &)
 {
   // clear out vectors in case of restart
-  joint_position_command_interface_.clear();
+  joint_position_command_interface_.clear();  
   joint_velocity_command_interface_.clear();
   joint_position_state_interface_.clear();
   joint_velocity_state_interface_.clear();
@@ -160,9 +173,55 @@ void interpolate_trajectory_point(
   interpolate_point(traj_msg.points[ind], traj_msg.points[ind + 1], point_interp, delta);
 }
 
-controller_interface::return_type RobotController::update(
+controller_interface::return_type HybridFTController::update(
   const rclcpp::Time & time, const rclcpp::Duration & /*period*/)
 {
+
+  // Read current force data
+  double current_force = ft_sensor_state_.get().get_value(); 
+
+  // Filter the force data and update the buffer
+  force_buffer_.push_back(current_force);
+  if (force_buffer_.size() > buffer_size_)
+  {
+    force_buffer_.pop_front();
+  }
+  double filtered_force = std::accumulate(force_buffer_.begin(), force_buffer_.end(), 0.0) / force_buffer_.size();
+
+  switch (current_state_) {
+        case State::MOVING:
+            // Calculate Movement Torques (PD Control: Kp*error + Kd*d_error)
+            // This moves the robot toward the target_position_
+            for (size_t i = 0; i < joint_effort_command_interface_.size(); ++i) {
+                double pos_err = target_pos_[i] - joint_position_state_interface_[i].get().get_value();
+                double vel_err = 0.0 - joint_velocity_state_interface_[i].get().get_value();
+                double effort = kp_[i] * pos_err + kd_[i] * vel_err;
+                
+                joint_effort_command_interface_[i].get().set_value(effort);
+            }
+
+            // Check for Contact
+            if (filtered_force > force_threshold_) {
+                current_state_ = State::CONTACT;
+                // Lock the joints at their current position upon contact
+                for (size_t i = 0; i < joint_position_state_interface_.size(); ++i) {
+                    hold_pos_[i] = joint_position_state_interface_[i].get().get_value();
+                }
+            }
+            break;
+
+        case State::CONTACT:
+            // Holding Logic: Keep the joints at the position where they made contact
+            for (size_t i = 0; i < joint_effort_command_interface_.size(); ++i) {
+                double pos_err = hold_pos_[i] - joint_position_state_interface_[i].get().get_value();
+                double effort = kp_hold_[i] * pos_err; // Use slightly different gains if needed
+                joint_effort_command_interface_[i].get().set_value(effort);
+            }
+            break;
+    }
+
+
+
   if (new_msg_)
   {
     trajectory_msg_ = *traj_msg_external_point_ptr_.readFromRT();
@@ -186,27 +245,40 @@ controller_interface::return_type RobotController::update(
   return controller_interface::return_type::OK;
 }
 
-controller_interface::CallbackReturn RobotController::on_deactivate(const rclcpp_lifecycle::State &)
+controller_interface::CallbackReturn HybridFTController::on_deactivate(const rclcpp_lifecycle::State &)
 {
   release_interfaces();
 
   return CallbackReturn::SUCCESS;
 }
 
-controller_interface::CallbackReturn RobotController::on_cleanup(const rclcpp_lifecycle::State &)
+controller_interface::CallbackReturn HybridFTController::on_cleanup(const rclcpp_lifecycle::State &)
 {
   return CallbackReturn::SUCCESS;
 }
 
-controller_interface::CallbackReturn RobotController::on_error(const rclcpp_lifecycle::State &)
+controller_interface::CallbackReturn HybridFTController::on_error(const rclcpp_lifecycle::State &)
 {
   return CallbackReturn::SUCCESS;
 }
 
-controller_interface::CallbackReturn RobotController::on_shutdown(const rclcpp_lifecycle::State &)
+controller_interface::CallbackReturn HybridFTController::on_shutdown(const rclcpp_lifecycle::State &)
 {
   return CallbackReturn::SUCCESS;
 }
+
+
+
+
+void JointImpedanceExampleController::updateJointStates()
+{
+  for (size_t i = 0; i < num_joints_; ++i)
+  {
+    q_(i)  = joint_position_interfaces_[i].get().get_value();
+    dq_(i) = joint_velocity_interfaces_[i].get().get_value();
+  }
+}
+
 
 }  // namespace Custom_Franka_Controller
 
