@@ -109,11 +109,15 @@ protected:
   // Used for the force torque sensor state interface
   std::reference_wrapper<hardware_interface::LoanedStateInterface> ft_sensor_state_;
 
+  // Data list
+  Eigen::Vector7d q_;  // Joint positions
+  Eigen::Vector7d dq_; // Joint velocities
+
   std::unordered_map<
     std::string, std::vector<std::reference_wrapper<hardware_interface::LoanedCommandInterface>> *>
     command_interface_map_ = {
-      {"position", &joint_position_command_interface_},
-      {"velocity", &joint_velocity_command_interface_},
+      // {"position", &joint_position_command_interface_},
+      // {"velocity", &joint_velocity_command_interface_},
       {"effort", &joint_effort_command_interface_}};
 
   std::unordered_map<

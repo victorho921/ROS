@@ -13,6 +13,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// Phrase 1
+// Target: Set a target position -> Monitor Force -> If Force > Threshold, hold position
+
 #include "gazebo_practise/robot_controller.hpp"
 
 #include <stddef.h>
@@ -127,6 +130,7 @@ controller_interface::CallbackReturn HybridFTController::on_activate(const rclcp
   joint_velocity_command_interface_.clear();
   joint_position_state_interface_.clear();
   joint_velocity_state_interface_.clear();
+  joint_effort_state_interface_.clear();
 
   // assign command interfaces
   for (auto & interface : command_interfaces_)
@@ -180,6 +184,13 @@ controller_interface::return_type HybridFTController::update(
   // Read current force data
   double current_force = ft_sensor_state_.get().get_value(); 
 
+  // Read current joint position and velocity from the state interfaces
+  for (size_t i = 0; i < num_joints_; ++i)
+  {
+    q_(i) = joint_position_state_interface_[i].get().get_value();
+    dq_(i) = joint_velocity_state_interface_[i].get().get_value();
+  }
+
   // Filter the force data and update the buffer
   force_buffer_.push_back(current_force);
   if (force_buffer_.size() > buffer_size_)
@@ -193,8 +204,8 @@ controller_interface::return_type HybridFTController::update(
             // Calculate Movement Torques (PD Control: Kp*error + Kd*d_error)
             // This moves the robot toward the target_position_
             for (size_t i = 0; i < joint_effort_command_interface_.size(); ++i) {
-                double pos_err = target_pos_[i] - joint_position_state_interface_[i].get().get_value();
-                double vel_err = 0.0 - joint_velocity_state_interface_[i].get().get_value();
+                double pos_err = target_pos_[i] - q_(i);
+                double vel_err = 0.0 - dq_(i);
                 double effort = kp_[i] * pos_err + kd_[i] * vel_err;
                 
                 joint_effort_command_interface_[i].get().set_value(effort);
@@ -205,7 +216,7 @@ controller_interface::return_type HybridFTController::update(
                 current_state_ = State::CONTACT;
                 // Lock the joints at their current position upon contact
                 for (size_t i = 0; i < joint_position_state_interface_.size(); ++i) {
-                    hold_pos_[i] = joint_position_state_interface_[i].get().get_value();
+                    hold_pos_[i] = q_(i); 
                 }
             }
             break;
@@ -213,7 +224,7 @@ controller_interface::return_type HybridFTController::update(
         case State::CONTACT:
             // Holding Logic: Keep the joints at the position where they made contact
             for (size_t i = 0; i < joint_effort_command_interface_.size(); ++i) {
-                double pos_err = hold_pos_[i] - joint_position_state_interface_[i].get().get_value();
+                double pos_err = hold_pos_[i] - q_(i);
                 double effort = kp_hold_[i] * pos_err; // Use slightly different gains if needed
                 joint_effort_command_interface_[i].get().set_value(effort);
             }
@@ -221,26 +232,26 @@ controller_interface::return_type HybridFTController::update(
     }
 
 
+  // Trajectory interpolation logic (if needed)
+  // if (new_msg_)
+  // {
+  //   trajectory_msg_ = *traj_msg_external_point_ptr_.readFromRT();
+  //   start_time_ = time;
+  //   new_msg_ = false;
+  // }
 
-  if (new_msg_)
-  {
-    trajectory_msg_ = *traj_msg_external_point_ptr_.readFromRT();
-    start_time_ = time;
-    new_msg_ = false;
-  }
-
-  if (trajectory_msg_ != nullptr)
-  {
-    interpolate_trajectory_point(*trajectory_msg_, time - start_time_, point_interp_);
-    for (size_t i = 0; i < joint_position_command_interface_.size(); i++)
-    {
-      joint_position_command_interface_[i].get().set_value(point_interp_.positions[i]);
-    }
-    for (size_t i = 0; i < joint_velocity_command_interface_.size(); i++)
-    {
-      joint_velocity_command_interface_[i].get().set_value(point_interp_.velocities[i]);
-    }
-  }
+  // if (trajectory_msg_ != nullptr)
+  // {
+  //   interpolate_trajectory_point(*trajectory_msg_, time - start_time_, point_interp_);
+  //   for (size_t i = 0; i < joint_position_command_interface_.size(); i++)
+  //   {
+  //     joint_position_command_interface_[i].get().set_value(point_interp_.positions[i]);
+  //   }
+  //   for (size_t i = 0; i < joint_velocity_command_interface_.size(); i++)
+  //   {
+  //     joint_velocity_command_interface_[i].get().set_value(point_interp_.velocities[i]);
+  //   }
+  // }
 
   return controller_interface::return_type::OK;
 }
@@ -270,14 +281,14 @@ controller_interface::CallbackReturn HybridFTController::on_shutdown(const rclcp
 
 
 
-void JointImpedanceExampleController::updateJointStates()
-{
-  for (size_t i = 0; i < num_joints_; ++i)
-  {
-    q_(i)  = joint_position_interfaces_[i].get().get_value();
-    dq_(i) = joint_velocity_interfaces_[i].get().get_value();
-  }
-}
+// void JointImpedanceExampleController::updateJointStates()
+// {
+//   for (size_t i = 0; i < num_joints_; ++i)
+//   {
+//     q_(i)  = joint_position_interfaces_[i].get().get_value();
+//     dq_(i) = joint_velocity_interfaces_[i].get().get_value();
+//   }
+// }
 
 
 }  // namespace Custom_Franka_Controller
