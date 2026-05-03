@@ -16,16 +16,17 @@ find_package(trajectory_msgs REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(Eigen3 REQUIRED)
 find_package(kdl_parser REQUIRED)
+find_package(controller_interface REQUIRED)
+find_package(hardware_interface REQUIRED)
+find_package(pluginlib REQUIRED)
+find_package(realtime_tools REQUIRED)
+find_package(Eigen3 REQUIRED)
+
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
   find_package(franka_description REQUIRED)
-  # the following line skips the linter which checks for copyrights
-  # comment the line when a copyright and license is added to all source files
   set(ament_cmake_copyright_FOUND TRUE)
-  # the following line skips cpplint (only works in a git repo)
-  # comment the line when this package is in a git repo and when
-  # a copyright and license is added to all source files
   set(ament_cmake_cpplint_FOUND TRUE)
   ament_lint_auto_find_test_dependencies()
 endif()
@@ -36,37 +37,35 @@ install(DIRECTORY launch/
 
 # Install URDF & sdf files
 install(
-  DIRECTORY urdf worlds
+  DIRECTORY urdf worlds config controller_config
   DESTINATION share/${PROJECT_NAME})
 
-# Install config files
-install(
-  DIRECTORY config
-  DESTINATION share/${PROJECT_NAME})
-  
-install(
-  DIRECTORY controller_config
-  DESTINATION share/${PROJECT_NAME})
+add_library(custom_robot_controller SHARED controller/robot_controller.cpp)
 
 add_executable(reference_generator src/reference_generator.cpp)
-ament_target_dependencies(reference_generator rclcpp trajectory_msgs sensor_msgs Eigen3 kdl_parser) # add more deps as needed
 
-install(TARGETS reference_generator
-  DESTINATION lib/${PROJECT_NAME}
+# Link the executable reference_generator with required libraries
+ament_target_dependencies(reference_generator
+  rclcpp 
+  trajectory_msgs 
+  sensor_msgs 
+  Eigen3 
+  kdl_parser
 )
 
+# Link the library custom_robot_controller with required libraries
+ament_target_dependencies(custom_robot_controller
+  rclcpp
+  controller_interface
+  hardware_interface
+  pluginlib
+  realtime_tools
+  Eigen3
+)
 
-# Install the executable
-#install(TARGETS
-  #your_node
-  #DESTINATION lib/${PROJECT_NAME}
-#)
+pluginlib_export_plugin_description_file(controller_interface plugins.xml)
 
-#install(
-  #PROGRAMS
-  #launch/send_trajectory.launch.py
-  #src/reference_generator.cpp
-  #DESTINATION lib/${PROJECT_NAME}
-#)
+install(TARGETS custom_robot_controller
+  DESTINATION lib)
 
 ament_package()

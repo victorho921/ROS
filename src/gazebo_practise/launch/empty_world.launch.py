@@ -80,11 +80,11 @@ def generate_launch_description():
 
     # # For publishing joint information
     # Only when using Rviz
-    # joint_state_publisher = Node(
-    #         package='joint_state_publisher_gui',
-    #         executable='joint_state_publisher_gui',
-    #         name="joint_state_publisher_gui",
-    # )
+    joint_state_publisher = Node(
+            package='joint_state_publisher_gui',
+            executable='joint_state_publisher_gui',
+            name="joint_state_publisher_gui",
+    )
 
     # Get the sdf file
     world_path = os.path.join(pkg_robot,'worlds','world.sdf')
@@ -114,24 +114,6 @@ def generate_launch_description():
         output='screen',
     )
 
-    # For spawning TF node in Rviz
-
-    # For spawning controller manager node 
-    controller_manager = Node(
-        package='controller_manager',
-        executable='ros2_control_node',
-        parameters=[robot_description, os.path.join(pkg_robot, 'controller_config', 'controller.yaml')],
-        output='screen'
-    )
-
-    # # For launching the custom controller  
-    # load_custom_controller = ExecuteProcess(
-    #     cmd=['ros2', 'control', 'load_controller',
-    #         '--set-state', 'active',
-    #         'controller'],
-    #     output='screen'
-    # )
-
     # For launching the joint state broadcaster
     load_joint_state_broadcaster = ExecuteProcess(
         cmd=['ros2', 'control', 'load_controller',
@@ -140,25 +122,27 @@ def generate_launch_description():
         output='screen'
     )
 
-    load_custom_controller = Node(
+    load_joint_trajectory_controler = Node(
         package='controller_manager',
         executable='spawner',
-        arguments=['joint_trajectory_controller'],
+        arguments=['joint_trajectory_controller','robot_controller'],
         output='screen'
     )
 
+    load_HybridFT_controller = Node(
+        package='controller_manager',
+        executable='spawner',
+        arguments=['robot_controller','--inactive'],
+        output='screen'
+    )
+
+    ign_bridge_config = os.path.join(pkg_robot, 'config', 'ign_bridge.yaml')
     ft_bridge = Node(
         package='ros_gz_bridge',
         executable='parameter_bridge',
         name='ft_sensor_bridge',
         output='screen',
-        arguments=[
-            # ← REPLACE with exact output from `gz topic -l`
-            '/model/fr3/link/fr3_link8/sensor/wrist_ft_sensor/force_torque@geometry_msgs/msg/Wrench@ignition.msgs.Wrench'
-        ],
-        remappings=[
-            ('/model/fr3/link/fr3_link8/sensor/wrist_ft_sensor/force_torque', '/wrist_force_torque')
-        ]
+        parameters=[{'config_file': ign_bridge_config}],
     )
 
 
@@ -167,14 +151,30 @@ def generate_launch_description():
         # joint_state_publisher,
         launch_gazebo,
         spawn_robot,
-        launch_rviz,
-        ft_bridge,
+        # launch_rviz,
+        # ft_bridge,
 
-        controller_manager,
+        load_HybridFT_controller,
+        load_joint_trajectory_controler,
         load_joint_state_broadcaster,
-        load_custom_controller,
     ])
 
+# Single Command to move the robot in gazebo
+# ros2 topic pub /joint_trajectory_controller/joint_trajectory trajectory_msgs/msg/JointTrajectory "{
+#   joint_names: ['fr3_joint1', 'fr3_joint2', 'fr3_joint3', 'fr3_joint4', 'fr3_joint5', 'fr3_joint6', 'fr3_joint7'],
+#   points: [
+#     {
+#       positions: [1.0, -0.785, 1.0, -2.35, 1.0, 1.57, 0.785],
+#       time_from_start: {sec: 5, nanosec: 0}
+#     }
+#   ]
+# }"
+
+# Initial position of the robot 
+# positions: [-1.22, 3.86, -0.785, -2.35, -3.044, 1.57, 0.785],
+
+# If cannot not find visual
+# export IGN_GAZEBO_RESOURCE_PATH=$IGN_GAZEBO_RESOURCE_PATH:~/RobotArmSim/src
 
 
 
