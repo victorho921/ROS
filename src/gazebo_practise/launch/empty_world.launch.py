@@ -114,24 +114,6 @@ def generate_launch_description():
         output='screen',
     )
 
-    # For spawning TF node in Rviz
-
-    # For spawning controller manager node 
-    # controller_manager = Node(
-    #     package='controller_manager',
-    #     executable='ros2_control_node',
-    #     parameters=[robot_description, os.path.join(pkg_robot, 'controller_config', 'controller.yaml')],
-    #     output='screen'
-    # )
-
-    # # For launching the custom controller  
-    # load_custom_controller = ExecuteProcess(
-    #     cmd=['ros2', 'control', 'load_controller',
-    #         '--set-state', 'active',
-    #         'controller'],
-    #     output='screen'
-    # )
-
     # For launching the joint state broadcaster
     load_joint_state_broadcaster = ExecuteProcess(
         cmd=['ros2', 'control', 'load_controller',
@@ -140,10 +122,17 @@ def generate_launch_description():
         output='screen'
     )
 
-    load_custom_controller = Node(
+    load_joint_trajectory_controler = Node(
         package='controller_manager',
         executable='spawner',
-        arguments=['joint_trajectory_controller'],
+        arguments=['joint_trajectory_controller','robot_controller'],
+        output='screen'
+    )
+
+    load_HybridFT_controller = Node(
+        package='controller_manager',
+        executable='spawner',
+        arguments=['robot_controller','--inactive'],
         output='screen'
     )
 
@@ -162,11 +151,12 @@ def generate_launch_description():
         # joint_state_publisher,
         launch_gazebo,
         spawn_robot,
-        launch_rviz,
-        ft_bridge,
+        # launch_rviz,
+        # ft_bridge,
 
+        load_HybridFT_controller,
+        load_joint_trajectory_controler,
         load_joint_state_broadcaster,
-        load_custom_controller,
     ])
 
 # Single Command to move the robot in gazebo

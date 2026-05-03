@@ -1,0 +1,9 @@
+<library path="custom_robot_controller">
+  <class name="gazebo_practise/CustomRobotController" 
+         type="gazebo_practise::CustomRobotController" 
+         base_class_type="controller_interface::ControllerInterface">
+    <description>
+      Custom Robot Controller
+    </description>
+  </class>
+</library>

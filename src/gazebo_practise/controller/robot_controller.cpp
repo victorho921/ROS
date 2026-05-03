@@ -16,7 +16,7 @@
 // Phrase 1
 // Target: Set a target position -> Monitor Force -> If Force > Threshold, hold position
 
-#include "gazebo_practise/robot_controller.hpp"
+#include "include/robot_controller.hpp"
 
 #include <stddef.h>
 #include <algorithm>
@@ -24,10 +24,10 @@
 #include <string>
 #include <vector>
 
-#include "rclcpp/qos.hpp"
-#include "rclcpp/time.hpp"
-#include "rclcpp_lifecycle/node_interfaces/lifecycle_node_interface.hpp"
-#include "rclcpp_lifecycle/state.hpp"
+// #include "rclcpp/qos.hpp"
+// #include "rclcpp/time.hpp"
+// #include "rclcpp_lifecycle/node_interfaces/lifecycle_node_interface.hpp"
+// #include "rclcpp_lifecycle/state.hpp"
 
 using config_type = controller_interface::interface_configuration_type;
 
@@ -296,4 +296,5 @@ controller_interface::CallbackReturn HybridFTController::on_shutdown(const rclcp
 #include "pluginlib/class_list_macros.hpp"
 
 PLUGINLIB_EXPORT_CLASS(
-  gazebo_practise::CustomRobotController, controller_interface::ControllerInterface)
+  Custom_Franka_Controller::HybridFTController, controller_interface::ControllerInterface)
+  

@@ -8,22 +8,7 @@
 
 ## Overview
 
-This repository contains ROS2 packages for simulating force and torque data using Franka Robotic Arm. 
-
-## Features
-
-- **FR3 7-DOF Arm + Hand** (from `franka_description`)
-- **ROS 2 Control Stack**:
-  - `joint_state_broadcaster`
-  - `joint_trajectory_controller`
-  - Custom C++ controller (`CustomRobotController`)
-  - Force/torque sensor broadcaster
-- **Ignition Gazebo Integration** (physics, sensors, spawning)
-- **GUI Joint Control** via `joint_state_publisher_gui`
-- **RViz Visualization** (pre-configured)
-- **MoveIt 2 Ready** (optional setup)
-
----
+This repository contains ROS2 packages for simulating force and torque data using Franka Robotic FR3 Arm. A Hybrid force and position controller is also under development. 
 
 ## How to Use
 
@@ -42,20 +27,14 @@ This repository contains ROS2 packages for simulating force and torque data usin
    cd RobotArmSim
    ```
 
-2. **Install dependencies:**
-   ```bash
-   sudo apt update
-   sudo apt install ros-humble-ros-gz ros-humble-moveit
-   ```
-
-3. **Build the workspace:**
+2. **Build the workspace:**
    ```bash
    source /opt/ros/humble/setup.bash
    colcon build
    source install/setup.bash
    ```
 
-4. **If cannot find model file:**
+3. **If cannot find model file:**
     ```bash
     export IGN_GAZEBO_RESOURCE_PATH=$IGN_GAZEBO_RESOURCE_PATH:~/RobotArmSim/src
     ```
@@ -127,7 +106,7 @@ RobotArmSim/
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENSE) file for details.
 
 ## Acknowledgments
 
