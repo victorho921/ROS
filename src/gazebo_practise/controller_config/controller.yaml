@@ -40,12 +40,12 @@ robot_controller:
       - fr3_joint7
 
     command_interfaces:
-      - effort
+      - position 
+      - velocity
 
     state_interfaces:
       - position
       - velocity
-
 
 joint_trajectory_controller:
   ros__parameters:

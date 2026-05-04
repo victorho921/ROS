@@ -37,6 +37,7 @@
 #include "realtime_tools/realtime_buffer.hpp"
 #include "trajectory_msgs/msg/joint_trajectory.hpp"
 #include "trajectory_msgs/msg/joint_trajectory_point.hpp"
+#include <geometry_msgs/msg/wrench.hpp>
 
 namespace Custom_Franka_Controller
 {
@@ -75,6 +76,11 @@ public:
     const rclcpp_lifecycle::State & previous_state) override;
 
 protected:
+  size_t num_joints_ = 0;
+  // State and Command vectors
+  std::vector<double> q_;                    // joint positions
+  std::vector<double> dq_;                   // joint velocities
+
   std::vector<std::string> joint_names_;
   std::vector<std::string> command_interface_types_;
   std::vector<std::string> state_interface_types_;
@@ -106,19 +112,17 @@ protected:
   // Added effort state interface for force feedback
   std::vector<std::reference_wrapper<hardware_interface::LoanedStateInterface>>
     joint_effort_state_interface_;
-  // Used for the force torque sensor state interface
-  std::reference_wrapper<hardware_interface::LoanedStateInterface> ft_sensor_state_;
+ 
 
   // Data list
-  Eigen::Vector7d q_;  // Joint positions
-  Eigen::Vector7d dq_; // Joint velocities
+  // Eigen::VectorXd q_;  // Joint positions
+  // Eigen::VectorXd dq_; // Joint velocities
 
   std::unordered_map<
     std::string, std::vector<std::reference_wrapper<hardware_interface::LoanedCommandInterface>> *>
     command_interface_map_ = {
-      // {"position", &joint_position_command_interface_},
-      // {"velocity", &joint_velocity_command_interface_},
-      {"effort", &joint_effort_command_interface_}};
+      {"position", &joint_position_command_interface_},
+      {"velocity", &joint_velocity_command_interface_}};
 
   std::unordered_map<
     std::string, std::vector<std::reference_wrapper<hardware_interface::LoanedStateInterface>> *>
@@ -127,14 +131,25 @@ protected:
       {"velocity", &joint_velocity_state_interface_},
       {"effort", &joint_effort_state_interface_}};
   
+  // Used to subscribe force torque sensor topic
+  rclcpp::Subscription<geometry_msgs::msg::Wrench>::SharedPtr ft_sensor_subscriber_;
+  geometry_msgs::msg::Wrench::SharedPtr latest_wrench_;
+  double wrench_filtered_[6] = {0.0}; // [force_x, force_y, force_z, torque_x, torque_y, torque_z]
+  
+  
   // Controller state for hybrid control
   enum class State { MOVING, CONTACT };
   State current_state_ = State::MOVING;
   
-  // Force threshold and buffer
-  double force_threshold_ = 5.0; // Default, override in on_configure via parameters
-  std::deque<double> force_buffer_; 
-  const size_t buffer_size_ = 5;
+  // Control gains
+  std::vector<double> kp_, kd_, kp_hold_;
+  
+  // Target and hold positions
+  std::vector<double> target_pos_, hold_pos_;
+  
+  // Sensor readings
+  std::vector<double> forces_;  // [force_x, force_y, force_z]
+  std::vector<double> torques_; // [torque_x, torque_y, torque_z]
 };
 
 }  // namespace Custom_Franka_Controller
