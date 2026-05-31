@@ -10,7 +10,8 @@ controller_manager:
       type: joint_state_broadcaster/JointStateBroadcaster
 
     robot_controller:
-      type: gazebo_practise/CustomRobotController 
+      type: Custom_Franka_Controller/HybridFTController
+      
       # gazebo_practise - package name where the plugin is defined
       # CustomRobotController - self defined C++ class name inside the controller program
 
@@ -40,12 +41,12 @@ robot_controller:
       - fr3_joint7
 
     command_interfaces:
-      - effort
+      - position 
+      - velocity
 
     state_interfaces:
       - position
       - velocity
-
 
 joint_trajectory_controller:
   ros__parameters:
