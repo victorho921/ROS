@@ -22,6 +22,7 @@
 #include <memory>
 #include <string>
 #include <vector>
+// #include "rclcpp/logging.hpp"
 
 // #include "rclcpp/qos.hpp"
 // #include "rclcpp/time.hpp"
@@ -121,20 +122,29 @@ controller_interface::CallbackReturn HybridFTController::on_configure(const rclc
   joint_position_state_interface_.clear();
   joint_velocity_state_interface_.clear();
 
+  // create subscription to the trajectory node
   // pass the message from the subscription to the control loop
-  // bascially the input of the motion
+
   auto callback =
     [this](const std::shared_ptr<trajectory_msgs::msg::JointTrajectory> traj_msg) -> void
   {
     traj_msg_external_point_ptr_.writeFromNonRT(traj_msg);
     new_msg_ = true;
   };
-
-  // create subscription to the trajectory node
-  // listen to the message from that node
   joint_command_subscriber_ =
     get_node()->create_subscription<trajectory_msgs::msg::JointTrajectory>(
       "~/joint_trajectory", rclcpp::SystemDefaultsQoS(), callback);
+
+
+  auto wrench_callback = 
+    [this](const std::shared_ptr<geometry_msgs::msg::WrenchStamped> wrench) -> void
+  {
+    wrench_external_point_ptr_.writeFromNonRT(wrench);
+    new_wrench_ = true;
+  };
+  ft_sensor_subscriber_ = 
+    get_node()->create_subscription<geometry_msgs::msg::WrenchStamped>(
+      "/force_torque_joint6", rclcpp::SystemDefaultsQoS(), wrench_callback);
 
   return CallbackReturn::SUCCESS;
 }
@@ -146,17 +156,8 @@ controller_interface::CallbackReturn HybridFTController::on_activate(const rclcp
   joint_velocity_command_interface_.clear();
   joint_position_state_interface_.clear();
   joint_velocity_state_interface_.clear();
-  // sensor_interfaces_.clear();
 
-
-
-  // assign command interfaces
-  // for (auto & interface : command_interfaces_)
-  // {
-
-    // command_interface_map_[interface.get_interface_name()]->push_back(interface);
-  // }
-  // I DOUBT THIS WORK
+  // Assign command interfaces
   for (auto & interface : command_interfaces_)
     {
         const std::string interface_type = interface.get_interface_name();  // "position", "velocity", etc.
@@ -166,19 +167,7 @@ controller_interface::CallbackReturn HybridFTController::on_activate(const rclcp
             it->second->push_back(interface);   // push into the correct vector
         }
     }
-
-  // assign state interfaces
-  // for (auto & interface : state_interfaces_)
-  // {
-  //   if (interface.get_name().find("force_torque_sensor/") == 0) {
-  //     // Sensor interface
-  //     sensor_interfaces_[interface.get_interface_name()] = std::ref(interface);
-  //   } else {
-  //     // Joint interface
-  //     state_interface_map_[interface.get_interface_name()]->push_back(interface);
-  //   }
-  // }
-
+  // Assign state interfaces
   for (auto & interface : state_interfaces_)
   {
       const std::string interface_name = interface.get_name();
@@ -191,25 +180,6 @@ controller_interface::CallbackReturn HybridFTController::on_activate(const rclcp
       }
   }
 
-  auto wrench_callback = [this](const geometry_msgs::msg::Wrench::SharedPtr wrench) 
-  {
-      latest_wrench_ = wrench;
-  };
-
-  ft_sensor_subscriber_ = get_node()->create_subscription<geometry_msgs::msg::Wrench>(
-    "~/ft_sensor_data", rclcpp::SystemDefaultsQoS(), wrench_callback);
-    // [this](const geometry_msgs::msg::Wrench::SharedPtr msg) {
-    //   wrench_raw_(0) = msg->force.x;
-    //   wrench_raw_(1) = msg->force.y;
-    //   wrench_raw_(2) = msg->force.z;
-    //   wrench_raw_(3) = msg->torque.x;
-    //   wrench_raw_(4) = msg->torque.y;
-    //   wrench_raw_(5) = msg->torque.z;
-    //   const double alpha = 0.1; // Low-pass filter coefficient
-    //   wrench_filtered_ = alpha * wrench_raw_ + (1 - alpha) * wrench_filtered_;
-    // });
-
-
   // Safty check for the interfaces
   if (joint_position_command_interface_.empty() && joint_position_state_interface_.empty())
   {
@@ -219,86 +189,150 @@ controller_interface::CallbackReturn HybridFTController::on_activate(const rclcp
 
   return CallbackReturn::SUCCESS;
 }
-
-void interpolate_point(
+// Linear interpolation for trajectory following
+void HybridFTController::linear_interpolate_point(
   const trajectory_msgs::msg::JointTrajectoryPoint & point_1,
   const trajectory_msgs::msg::JointTrajectoryPoint & point_2,
-  trajectory_msgs::msg::JointTrajectoryPoint & point_interp, double delta)
+  trajectory_msgs::msg::JointTrajectoryPoint & point_interp, 
+  double tau)
 {
-  for (size_t i = 0; i < point_1.positions.size(); i++)
+  size_t num_joints = point_1.positions.size();
+
+  for (size_t i = 0; i < num_joints; i++)
   {
-    point_interp.positions[i] = delta * point_2.positions[i] + (1.0 - delta) * point_2.positions[i];
+    point_interp.positions[i] = tau * point_1.positions[i] + (1.0 - tau) * point_2.positions[i];
   }
-  for (size_t i = 0; i < point_1.positions.size(); i++)
+  for (size_t i = 0; i < num_joints; i++)
   {
     point_interp.velocities[i] =
-      delta * point_2.velocities[i] + (1.0 - delta) * point_2.velocities[i];
+      tau * point_1.velocities[i] + (1.0 - tau) * point_2.velocities[i];
   }
 }
 
-void interpolate_trajectory_point(
-  const trajectory_msgs::msg::JointTrajectory & traj_msg, const rclcpp::Duration & cur_time,
+// Cubic Interpolation for 
+void HybridFTController::cubic_interpolate_point(
+  const trajectory_msgs::msg::JointTrajectoryPoint & point_1,
+  const trajectory_msgs::msg::JointTrajectoryPoint & point_2,
+  trajectory_msgs::msg::JointTrajectoryPoint & point_interp,
+  double T,
+  double tau) // The time duration of this specific segment in seconds
+{
+  size_t num_joints = point_1.positions.size();
+  
+  for (size_t i = 0; i < num_joints; ++i)
+  {
+    double q0 = point_1.positions[i];
+    double q1 = point_2.positions[i];
+    
+    // Fallback protection: if velocities aren't provided in the message, assume 0.0
+    double v0 = (point_1.velocities.size() > i) ? point_1.velocities[i] : 0.0;
+    double v1 = (point_2.velocities.size() > i) ? point_2.velocities[i] : 0.0;
+
+    // Cubic Spline Blend Coefficients
+    double a0 = q0;
+    double a1 = v0;
+    double a2 = (3.0 * (q1 - q0) / (T * T)) - ((2.0 * v0 + v1) / T);
+    double a3 = (-2.0 * (q1 - q0) / (T * T * T)) + ((v0 + v1) / (T * T));
+
+    point_interp.positions[i] = a0 + a1 * tau + a2 * tau * tau + a3 * tau * tau * tau;
+    point_interp.velocities[i] = a1 + 2.0 * a2 * tau + 3.0 * a3 * tau * tau;
+    // RCLCPP_INFO(get_node()->get_logger(), "Cubic interpolation for joint %zu: pos=%.2f, vel=%.2f", i, point_interp.positions[i], point_interp.velocities[i]);
+  }
+}
+
+void HybridFTController::interpolate_trajectory_point(
+  const trajectory_msgs::msg::JointTrajectory & traj_msg, const rclcpp::Duration & cur_time, 
   trajectory_msgs::msg::JointTrajectoryPoint & point_interp)
 {
+  // Varibale explained:
+  // cur_time is the time elapsed since the start of the trajectory execution
+  // tau is the local time within each waypoint
+
   double traj_len = traj_msg.points.size();
   auto last_time = traj_msg.points[traj_len - 1].time_from_start;
   double total_time = last_time.sec + last_time.nanosec * 1E-9;
 
-  size_t ind = cur_time.seconds() * (traj_len / total_time);
+  // Get the duration from the trajectory message (if provided) or default to 1 second
+  double T = (traj_msg.points[0].time_from_start.sec + traj_msg.points[0].time_from_start.nanosec * 1E-9);
+  if (T <= 0.0) {
+    RCLCPP_WARN(rclcpp::get_logger("HybridFTController"), "Trajectory point has non-positive time_from_start. Defaulting to 1 second.");
+    T = 1.0; 
+  }
+
+  // If the trajectory only has one point, just send that point as command
+  if (traj_len == 1)  
+  {
+    // RCLCPP_INFO(rclcpp::get_logger("HybridFTController"), "Sending single point trajectory command.");
+    
+    // Get the current point and velocity from state interface
+    trajectory_msgs::msg::JointTrajectoryPoint current_point;
+    for (size_t i = 0; i < num_joints_; ++i)
+    {
+      current_point.positions.push_back(joint_position_state_interface_[i].get().get_value());
+      current_point.velocities.push_back(joint_velocity_state_interface_[i].get().get_value());
+    }
+    double tau = std::min(cur_time.seconds(),T); 
+    // cubic_interpolate_point(current_point, traj_msg.points[0], point_interp, T, tau);
+    linear_interpolate_point(current_point, traj_msg.points[0], point_interp, tau);
+    return;
+  }
+
+  // the section number of the current point in the trajectory after it being sliced
+  size_t ind = cur_time.seconds() * (traj_len / total_time); 
   ind = std::min(static_cast<double>(ind), traj_len - 2);
-  double delta = cur_time.seconds() - ind * (total_time / traj_len);
-  interpolate_point(traj_msg.points[ind], traj_msg.points[ind + 1], point_interp, delta);
+  double tau = cur_time.seconds() - ind * (total_time / traj_len);
+  // linear_interpolate_point(traj_msg.points[ind], traj_msg.points[ind + 1], point_interp, tau);
+  cubic_interpolate_point(traj_msg.points[ind], traj_msg.points[ind + 1], point_interp, T , tau );
+}
+
+void HybridFTController::PDControl()
+{
+  for (size_t i = 0; i < joint_position_state_interface_.size(); ++i) {
+    double q_des = point_interp_.positions[i];
+    double dq_des = point_interp_.velocities[i];
+
+    double q_curr = joint_position_state_interface_[i].get().get_value();
+    double dq_curr = joint_velocity_state_interface_[i].get().get_value();
+
+    double pos_err = q_des - q_curr;
+    double vel_err = dq_des - dq_curr;
+
+    double vel_cmd = kp_[i] * pos_err + kd_[i] * vel_err;
+    // joint_velocity_command_interface_[i].get().set_value(vel_cmd);
+  }
 }
 
 controller_interface::return_type HybridFTController::update(
   const rclcpp::Time & time, const rclcpp::Duration & /*period*/)
 {
-  // Read current joint position and velocity from the state interfaces
-  // for (size_t i = 0; i < num_joints_; ++i)
+  // Filter the z-force data
+  wrench_ = *wrench_external_point_ptr_.readFromRT();
+  if (wrench_ == nullptr) {
+    return controller_interface::return_type::OK;
+  }
+  // if (new_wrench_)
   // {
-  //   q_(i) = joint_position_state_interface_[i].get().get_value();
-  //   dq_(i) = joint_velocity_state_interface_[i].get().get_value();
+      forces_[0] = wrench_->wrench.force.x;
+      forces_[1] = wrench_->wrench.force.y;
+      forces_[2] = wrench_->wrench.force.z;
+
+      torques_[0] = wrench_->wrench.torque.x;
+      torques_[1] = wrench_->wrench.torque.y;
+      torques_[2] = wrench_->wrench.torque.z;
+
+      RCLCPP_INFO(get_node()->get_logger(), "Latest wrench - Force: [%.2f, %.2f, %.2f], Torque: [%.2f, %.2f, %.2f]", 
+                   forces_[0], forces_[1], forces_[2], torques_[0], torques_[1], torques_[2]);
   // }
 
-  // Filter the z-force data
-  if (latest_wrench_)
-  {
-      forces_[0] = latest_wrench_->force.x;
-      forces_[1] = latest_wrench_->force.y;
-      forces_[2] = latest_wrench_->force.z;
-
-      torques_[0] = latest_wrench_->torque.x;
-      torques_[1] = latest_wrench_->torque.y;
-      torques_[2] = latest_wrench_->torque.z;
-  }
 
   double filtered_force_z_ = 0.1 * forces_[2] + 0.9 * filtered_force_z_; // Simple low-pass filter
   double force_threshold_ = 5.0; // Threshold for contact detection (adjust as needed)
-
-  // === Force filtering (Z-axis) ===
-  // force_buffer_.push_back(forces_[2]);
-  // if (force_buffer_.size() > buffer_size_)
-  //     force_buffer_.pop_front();
-
-  // double filtered_force_z = 0.0;
-  // if (!force_buffer_.empty())
-  // {
-  //     filtered_force_z = std::accumulate(force_buffer_.begin(), force_buffer_.end(), 0.0) 
-  //                         / force_buffer_.size();
-  // }
 
   // Check the current state
   switch (current_state_) {
         case State::MOVING:
             // Calculate Movement Torques (PD Control: Kp*error + Kd*d_error)
-            // This moves the robot toward the target_position_
-            for (size_t i = 0; i < joint_position_state_interface_[i].get().get_value(); ++i) {
-                double pos_err = target_pos_[i] - joint_position_state_interface_[i].get().get_value();
-                double vel_err = 0.0 - joint_velocity_state_interface_[i].get().get_value();
-                // double effort = kp_[i] * pos_err + kd_[i] * vel_err;
-                
-                // joint_effort_command_interface_[i].get().set_value(effort);
-            }
+            PDControl();
 
             // Check for Contact on z-axis
             if (std::abs(filtered_force_z_) > force_threshold_) {
@@ -315,10 +349,11 @@ controller_interface::return_type HybridFTController::update(
             break;
     }
 
-
-  // Trajectory interpolation logic (if needed)
+  // The controller will keep sending the trajectory command so its normally to see the message looping
+  // Trajectory interpolation logic
   if (new_msg_)
   {
+    RCLCPP_INFO(get_node()->get_logger(), "Received new trajectory message, starting interpolation.");
     trajectory_msg_ = *traj_msg_external_point_ptr_.readFromRT();
     start_time_ = time;
     new_msg_ = false;
@@ -326,13 +361,20 @@ controller_interface::return_type HybridFTController::update(
   if (trajectory_msg_ != nullptr)
   {
     interpolate_trajectory_point(*trajectory_msg_, time - start_time_, point_interp_);
+    // RCLCPP_DEBUG(get_node()->get_logger(), "Interpolated trajectory point at time %.2f", (time - start_time_).seconds());
     for (size_t i = 0; i < joint_position_command_interface_.size(); i++)
     {
+      // RCLCPP_INFO(get_node()->get_logger(), "Setting joint %zu position command to %.2f", i, point_interp_.positions[i]);
       joint_position_command_interface_[i].get().set_value(point_interp_.positions[i]);
       target_pos_[i] = point_interp_.positions[i]; // Update target position for hybrid control
     }
     for (size_t i = 0; i < joint_velocity_command_interface_.size(); i++)
     {
+      // RCLCPP_INFO(get_node()->get_logger(), "Setting joint %zu velocity command to %.2f", i, point_interp_.velocities[i]);
+
+      // const double debug_vel = 1.0; // Set a constant velocity for debugging
+      // joint_velocity_command_interface_[i].get().set_value(debug_vel);
+
       joint_velocity_command_interface_[i].get().set_value(point_interp_.velocities[i]);
     }
   }

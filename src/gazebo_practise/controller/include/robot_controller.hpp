@@ -32,12 +32,14 @@
 #include "rclcpp/subscription.hpp"
 #include "rclcpp/time.hpp"
 #include "rclcpp/timer.hpp"
+// #include "rclcpp/logging.hpp"
 #include "rclcpp_lifecycle/lifecycle_publisher.hpp"
 #include "rclcpp_lifecycle/node_interfaces/lifecycle_node_interface.hpp"
 #include "realtime_tools/realtime_buffer.hpp"
 #include "trajectory_msgs/msg/joint_trajectory.hpp"
 #include "trajectory_msgs/msg/joint_trajectory_point.hpp"
 #include <geometry_msgs/msg/wrench.hpp>
+#include <geometry_msgs/msg/wrench_stamped.hpp>
 
 namespace Custom_Franka_Controller
 {
@@ -89,12 +91,16 @@ protected:
 
   realtime_tools::RealtimeBuffer<std::shared_ptr<trajectory_msgs::msg::JointTrajectory>>
     traj_msg_external_point_ptr_;
-
   bool new_msg_ = false;
+
+  realtime_tools::RealtimeBuffer<std::shared_ptr<geometry_msgs::msg::WrenchStamped>> 
+    wrench_external_point_ptr_;
+  bool new_wrench_ = false;
 
   rclcpp::Time start_time_;
 
   std::shared_ptr<trajectory_msgs::msg::JointTrajectory> trajectory_msg_;
+  std::shared_ptr<geometry_msgs::msg::WrenchStamped> wrench_;
 
   trajectory_msgs::msg::JointTrajectoryPoint point_interp_;
 
@@ -132,8 +138,7 @@ protected:
       {"effort", &joint_effort_state_interface_}};
   
   // Used to subscribe force torque sensor topic
-  rclcpp::Subscription<geometry_msgs::msg::Wrench>::SharedPtr ft_sensor_subscriber_;
-  geometry_msgs::msg::Wrench::SharedPtr latest_wrench_;
+  rclcpp::Subscription<geometry_msgs::msg::WrenchStamped>::SharedPtr ft_sensor_subscriber_;
   double wrench_filtered_[6] = {0.0}; // [force_x, force_y, force_z, torque_x, torque_y, torque_z]
   
   
@@ -150,6 +155,31 @@ protected:
   // Sensor readings
   std::vector<double> forces_;  // [force_x, force_y, force_z]
   std::vector<double> torques_; // [torque_x, torque_y, torque_z]
+
+  // Functions
+  void interpolate_trajectory_point(
+    const trajectory_msgs::msg::JointTrajectory & traj_msg,
+    const rclcpp::Duration & delta,
+    trajectory_msgs::msg::JointTrajectoryPoint & point_interp
+  );
+
+  void linear_interpolate_point(
+    const trajectory_msgs::msg::JointTrajectoryPoint & point_1,
+    const trajectory_msgs::msg::JointTrajectoryPoint & point_2,
+    trajectory_msgs::msg::JointTrajectoryPoint & point_interp, 
+    double tau
+  );
+
+  void cubic_interpolate_point(
+    const trajectory_msgs::msg::JointTrajectoryPoint & point_1,
+    const trajectory_msgs::msg::JointTrajectoryPoint & point_2,
+    trajectory_msgs::msg::JointTrajectoryPoint & point_interp, 
+    double T,
+    double tau
+  );
+
+  void PDControl();
+    
 };
 
 }  // namespace Custom_Franka_Controller
